@@ -1,28 +1,29 @@
 import Image from 'next/image';
-import logo from '../assets/Logo.png';
+import logo from '../assets/Logo1.png';
+import Signin from './Signin';
+import Register from './Register';
 
-const Navbar = () => {
+
+export default function Navbar() {
     return (
-        <>
-            <div className='w-full h-20 bg-white-800 sticky top-0'>
-                <div className='container mx-auto px-4 h-full'>
-                    <div className='flex justify-between items-center h-full'>
-                        <Image className='h-24 w-auto'
-                            src={logo}
-                            alt='logo'
-                        />
-                        <ul className="hidden md:flex gap-x-6 text-black">
-                            <li>
-                                <p>Recipes</p>
-                            </li>
-                        </ul>
-
-                    </div>
+        <nav className='sticky top-0 w-full bg-white border-b border-black-200'>
+            <div className='flex justify-between items-center h-20 px-6 md:px-16'>
+                <div className='flex items-center'>
+                    <Image 
+                    src={logo}
+                    alt='logo'
+                    className='h-24 w-auto'
+                    priority/>
                 </div>
+               <div className='flex items-center gap-6 text-black font-medium'>
+                <p className='cursor-pointer'>
+                    Recipes
+                </p>
+                <Signin/>
+                <Register/>
+               </div>
             </div>
-        </>
+        </nav>
     );
 
 };
-
-export default Navbar;

@@ -1,6 +1,9 @@
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Raleway } from "next/font/google";
+
+const raleway = Raleway({subsets: ['latin']});
 
 export default function RootLayout({
   children,
@@ -9,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={raleway.className}>
           <Navbar/>
         {children}
       </body>
