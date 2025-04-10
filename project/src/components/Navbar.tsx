@@ -2,7 +2,7 @@ import Image from 'next/image';
 import logo from '../assets/Logo1.png';
 import Signin from './Signin';
 import Register from './Register';
-
+import Link from 'next/link';
 
 export default function Navbar() {
     return (
@@ -14,11 +14,14 @@ export default function Navbar() {
                     alt='logo'
                     className='h-24 w-auto'
                     priority/>
+                    <Link className='cursor-pointer' href='/'>
+                        Home
+                    </Link>
                 </div>
                <div className='flex items-center gap-6 text-black font-medium'>
-                <p className='cursor-pointer'>
+                <Link className='cursor-pointer' href='/recipes' >
                     Recipes
-                </p>
+                </Link>
                 <Signin/>
                 <Register/>
                </div>

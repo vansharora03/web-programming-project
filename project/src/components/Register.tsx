@@ -3,7 +3,7 @@ import styles from './Buttons.module.css'
 
 export default function Register () {
     return (
-        <Link href='/project/src/app/signin.tsx'>
+        <Link href='/register'>
         <button className={styles.register}>
             Register
         </button>
