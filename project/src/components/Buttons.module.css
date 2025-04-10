@@ -6,6 +6,7 @@
   border-style: solid;
   cursor: pointer;
   border-radius: 10px;
+  animation: fadeIn 3.5s;
 }
 
 .signin:hover {
@@ -21,9 +22,15 @@
   border-style: solid;
   cursor: pointer;
   border-radius: 10px;
+  animation: fadeIn 3.5s;
 }
 
 .register:hover {
   background-color: #7BB497;
   color: white;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

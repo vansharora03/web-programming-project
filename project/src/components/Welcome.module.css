@@ -1,0 +1,27 @@
+.body {
+    background-color: #d6e0d3;
+    display: flex;
+    color: black;
+    padding: 100px 100px;
+    margin: 30px 100px 30px 100px;
+    border-radius: 50px;
+    font-size: 32px;
+    font-weight:400px;
+  }
+  
+  .header {
+    background-color: #5C8966;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 50px;
+    border-radius:30px;
+    font-size: 38px;
+    animation: fadeIn 3.5s;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+    
+  

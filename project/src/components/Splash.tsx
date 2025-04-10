@@ -1,5 +1,6 @@
 import Image from "next/image";
 import splash from "@/assets/splash3.png";
+import styles from './Splash.module.css'
 
 export default function Splash () {
     return (
@@ -11,6 +12,7 @@ export default function Splash () {
                 fill
                 style={{objectFit:'cover'}}
                 priority
+                className={styles.fade}
                 />
 
             </div>
