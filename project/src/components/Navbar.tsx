@@ -8,7 +8,7 @@ export default function Navbar() {
     return (
         <nav className='sticky top-0 w-full bg-white border-b border-black-200'>
             <div className='flex justify-between items-center h-20 px-6 md:px-16'>
-                <div className='flex items-center'>
+                <div className='flex items-center text-black font-medium'>
                     <Image 
                     src={logo}
                     alt='logo'
@@ -21,6 +21,12 @@ export default function Navbar() {
                <div className='flex items-center gap-6 text-black font-medium'>
                 <Link className='cursor-pointer' href='/recipes' >
                     Recipes
+                </Link>
+                <Link className='cursor-pointer' href='/recipes' >
+                    Favorites
+                </Link>
+                <Link className='cursor-pointer' href='/recipes' >
+                    Profile
                 </Link>
                 <Signin/>
                 <Register/>
