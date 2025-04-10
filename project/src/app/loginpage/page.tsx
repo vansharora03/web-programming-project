@@ -1,8 +1,16 @@
+"use client";
 
-const Loginpage = () => {
-  return (
-    <p>Login Page</p>
-  )
+import React from "react";
+import Login from "@/components/Login";
+
+const handleLogin = (user) => {
+  console.log("User logged in:", user.email);
 };
 
-export default Loginpage;
+export default function LoginPage() {
+  return (
+    <div>
+      <Login onLogin={handleLogin} />
+    </div>
+  );
+}

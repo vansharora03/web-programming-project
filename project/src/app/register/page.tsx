@@ -1,8 +1,17 @@
+"use client";
 
-const Register = () => {
-  return (
-    <p>Register Page</p>
-  )
+import React from "react";
+import Signup from "@/components/AuthSignup";
+
+
+const handleSignup = (user) => {
+  console.log("User signed up:", user.email);
 };
 
-export default Register;
+export default  function SignupPage() {
+  return (
+    <div>
+      <Signup onSignup={handleSignup} />
+    </div>
+  );
+}
