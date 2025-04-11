@@ -1,6 +1,6 @@
 // components/Auth/Signup.tsx
 import React, { useState, FormEvent } from "react";
-import "./AuthSignup.css";
+import styles from './RegisterForm.module.css'
 import Button from "./Button";
 import Redirect from "./Redirect";
 
@@ -12,7 +12,7 @@ type SignupProps = {
   }) => void;
 };
 
-const AuthSignup: React.FC<SignupProps> = ({ onSignup }) => {
+const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,27 +26,18 @@ const AuthSignup: React.FC<SignupProps> = ({ onSignup }) => {
   };
 
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Sign Up</div>
-        <div className="underline"></div>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        Register
+        <div className={styles.underline}></div>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div className="inputs">
-          <div className="input">
-            <img src="/images/person-icon.png" alt="Username icon" />
-            <input
-              type="text"
-              placeholder="Enter your username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+        <div className={styles.inputs}>
+          <div>
+            <p className={styles.text}>Email</p>
           </div>
-
-          <div className="input">
-            <img src="/images/email-icon.png" alt="Email icon" />
+          <div className={styles.input}>
             <input
               type="email"
               placeholder="Enter your email"
@@ -55,9 +46,10 @@ const AuthSignup: React.FC<SignupProps> = ({ onSignup }) => {
               required
             />
           </div>
-
-          <div className="input">
-            <img src="/images/password-icon.png" alt="Password icon" />
+          <div>
+            <p className={styles.text}>Password</p>
+          </div>
+          <div className={styles.input}>
             <input
               type="password"
               placeholder="Enter your password"
@@ -66,14 +58,17 @@ const AuthSignup: React.FC<SignupProps> = ({ onSignup }) => {
               required
             />
           </div>
+          <div className={styles.submitcontainer}>
+            <Button className={styles.button} text="Sign Up" />
+          </div>
+          <div className={styles.text}>
+            <Redirect to="/loginpage" text="Already Have An accounrt?" />
+          </div>
         </div>
 
-        <Redirect to="/login" text="Login" />
-
-        <Button type="submit" text="Sign Up" />
       </form>
     </div>
   );
 };
 
-export default AuthSignup;
+export default RegisterForm;

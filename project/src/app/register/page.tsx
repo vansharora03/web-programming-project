@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Signup from "@/components/AuthSignup";
+import RegisterForm from "@/components/RegisterForm";
 
 
 const handleSignup = (user) => {
@@ -11,7 +11,7 @@ const handleSignup = (user) => {
 export default  function SignupPage() {
   return (
     <div>
-      <Signup onSignup={handleSignup} />
+      <RegisterForm onSignup={handleSignup} />
     </div>
   );
 }

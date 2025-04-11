@@ -1,52 +1,47 @@
 
 import React, { useState } from "react";
-import "./Signup.css";
-import person_icon from "../../resources/person-icon.png";
-import email_icon from "../../resources/email-icon.png";
-import password_icon from "../../resources/password-icon.png";
+import styles from './RegisterForm.module.css'
+import Button from "./Button";
+import Redirect from "./Redirect";
 
 const LoginSignup = () => {
 
-    const [action, setAction] = useState("Login");
+    const [action, setAction] = useState();
     const [formData, setFormData] = useState({ username: "", email: "", password: ""});
 
   return (
-
-
     
-    <div className="container">
-      <div className="header">
-        <div className="text">{action}</div>
-        <div className="underline"></div>
+    <div className={styles.container}>
+      <div className={styles.header}> Sign In
+        <div className={styles.text}>{action}</div>
+        <div className={styles.underline}></div>
       </div>
-      <div className="inputs">
-        
-        {/* name */}
-        <div className="input">
-            <img src={person_icon} alt="Person icon" />
-          <input type="text" placeholder="Enter your username" value={formData.username} onChange={(e) => setFormData({...formData, username: e.target.value })} />
-        </div>
-
-        {/* email */}
-        <div className="input">
-          <img src={email_icon} alt="Email icon" />
+      <div className={styles.inputs}>
+      <div>
+            <p className={styles.text}>Email</p>
+          </div>
+        <div className={styles.input}>
           <input type="email" placeholder="Enter your email" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value })} />
         </div>
-
-        {/* password */}
-        <div className="input">
-          <img src={password_icon} alt="Password icon" />
+        <div>
+            <p className={styles.text}>Password</p>
+          </div>
+        <div className={styles.input}>
           <input type="password" placeholder="Enter your password" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value })} />
         </div>
-      </div>
-      <div className="forgot-password">
+        <div className='cursor-pointer text-white'>
         <span>Forgot Password?</span>
       </div>
-      <div className="submit-container">
-        <div className={action === "Login" ? "submit" : "submit gray"}>Login</div>
-        <div className={action === "Sign Up" ? "submit" : "submit gray"} onClick={() => setAction("Sign Up")}>Sign Up</div>
-
+        <div className={styles.submitcontainer}>
+      <div className={styles.submitcontainer}>
+            <Button className={styles.button} text="Sign In" />
+          </div>
+          <div className={styles.text}>
+            <Redirect to="/register" text="Don't Have An Account?" />
+          </div>
       </div>
+      </div>
+      
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Redirect = ({ to, text }: RedirectProps) => {
         flexDirection: "column",
         margin: "10px auto",
         alignItems: "center",
-        color: "gray",
+        color: 'white',
       }}
     >
       {text}
