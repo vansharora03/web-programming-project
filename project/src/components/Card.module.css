@@ -8,6 +8,12 @@
     height: 300px;
     margin: 10px 100px 0 100px;
     box-shadow: 8px 8px 12px rgba(0,0,0,0.5);
+    transition: 0.5s;
+}
+
+.card:hover {
+    box-shadow: 8px 8px 6px #2D4B48;
+    transform: translateY(-7px);
 }
 
 .content {

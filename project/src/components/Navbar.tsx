@@ -14,18 +14,18 @@ export default function Navbar() {
                     alt='logo'
                     className='h-24 w-auto'
                     priority/>
-                    <Link className='cursor-pointer' href='/'>
+                    <Link className='cursor-pointer hover:underline' href='/'>
                         Home
                     </Link>
                 </div>
                <div className='flex items-center gap-6 text-black font-medium'>
-                <Link className='cursor-pointer' href='/recipes' >
+                <Link className='cursor-pointer hover:underline' href='/recipes' >
                     Recipes
                 </Link>
-                <Link className='cursor-pointer' href='/recipes' >
+                <Link className='cursor-pointer hover:underline' href='/favorites' >
                     Favorites
                 </Link>
-                <Link className='cursor-pointer' href='/recipes' >
+                <Link className='cursor-pointer hover:underline' href='/profile' >
                     Profile
                 </Link>
                 <Signin/>
