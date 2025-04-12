@@ -7,6 +7,7 @@
   padding-bottom: 30px;
   border-radius: 30px;
   animation: fadeIn 3.5s;
+  box-shadow: 8px 8px 12px rgba(0,0,0,0.4);
 }
 
 .header {
@@ -50,6 +51,7 @@
   height: 600px;
   background-color: #7BB497;
   border-radius: 30px;
+  box-shadow: 8px 8px 12px rgba(0,0,0,0.4);
 }
 
 .input {

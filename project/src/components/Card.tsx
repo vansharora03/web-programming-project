@@ -1,11 +1,12 @@
+import styles from './Card.module.css'
+
 interface CardProps {
     children: React.ReactNode;
-    className?: string;
 }
 
-const Card = ({ children, className=''}: CardProps) => {
+const Card = ({ children=''}: CardProps) => {
     return (
-        <div className={`shadow-sm rounded-lg p-4 bg-#D9D9D9 ${className}`}>
+        <div className={styles.card}>
             {children}
         </div>
     );
