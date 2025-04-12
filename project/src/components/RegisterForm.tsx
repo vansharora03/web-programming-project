@@ -59,7 +59,7 @@ const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
             />
           </div>
           <div className={styles.submitcontainer}>
-            <Button className={styles.button} text="Sign Up" />
+            <Button className={styles.button} text="Register" />
           </div>
           <div className={styles.text}>
             <Redirect to="/loginpage" text="Already Have An accounrt?" />

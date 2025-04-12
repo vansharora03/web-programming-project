@@ -1,9 +1,10 @@
 import React from "react";
+import Recipes from "@/components/Recipes";
 
-const Recipes = () => {
+const RecipesPage = () => {
     return (
-        <div>Recipes</div>
+        <Recipes/>
     );
 }
 
-export default Recipes;
+export default RecipesPage;
