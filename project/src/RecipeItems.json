@@ -11,7 +11,7 @@
       "_id": 2,
       "owner": 1,
       "title": "Street Tacos",
-      "ingredientLines": "Corn Tortilla, Meat, Onions, Ingredients..., Ingredients..., Ingredients...",
+      "ingredientLines": "Corn Tortilla, Meat, Onions, Ingredients..., Ingredients...,  Ingredients...",
      "calories": 500,
       "url": "https://images.unsplash.com/photo-1520501247332-6fb052b72414?q=80&w=2372&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
@@ -19,6 +19,22 @@
       "_id": 3,
       "owner": 3,
       "title": "Veggie Stir Fry ",
+      "ingredientLines": "Brocolli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
+      "calories": 550,
+      "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "_id": 4,
+      "owner": 3,
+      "title": "Food 4 ",
+      "ingredientLines": "Brocolli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
+      "calories": 550,
+      "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+      "_id": 5,
+      "owner": 3,
+      "title": "Food 5",
       "ingredientLines": "Brocolli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
       "calories": 550,
       "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
