@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 
 const User = () => {
   const [user, setUser] = useState({
-    username: "",
     email: "",
     password: "",
   });
 
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -30,7 +28,6 @@ const User = () => {
         const data = await response.json();
         const userData = data.user;
         setUser({
-          username: userData.username || "",
           email: userData.email || "",
           password: userData.password || "",
         });
@@ -59,7 +56,7 @@ const User = () => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      setFormData({ username: "", email: "", password: "" });
+      setFormData({ email: "", password: "" });
       router.push(`/user/${id}`);
     } catch (error) {
       console.error("Error updating user:", error);
@@ -82,21 +79,10 @@ const User = () => {
     <div>
       <h1>User Profile</h1>
       <div>
-        <p>Username: {user.username}</p>
         <p>Email: {user.email}</p>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
-          <input
-            type="text"
-            value={formData.username}
-            onChange={(e) =>
-              setFormData({ ...formData, username: e.target.value })
-            }
-          />
-        </div>
         <div>
           <label>Email</label>
           <input
@@ -121,7 +107,6 @@ export default User;
 interface UserProps {
   user: {
     id: number;
-    username: string;
     email: string;
     password: string;
   };

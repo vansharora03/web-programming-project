@@ -7,6 +7,7 @@
   cursor: pointer;
   border-radius: 10px;
   animation: fadeIn 3.5s;
+  width: 100px;
 }
 
 .signin:hover {

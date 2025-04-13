@@ -1,26 +1,20 @@
 // components/Auth/Signup.tsx
 import React, { useState, FormEvent } from "react";
-import styles from './RegisterForm.module.css'
+import styles from "./RegisterForm.module.css";
 import Button from "./Button";
 import Redirect from "./Redirect";
 
 type SignupProps = {
-  onSignup: (user: {
-    username: string;
-    email: string;
-    password: string;
-  }) => void;
+  onSignup: (user: { email: string; password: string }) => void;
 };
 
 const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    onSignup({ username, email, password });
-    setUsername("");
+    onSignup({ email, password });
     setEmail("");
     setPassword("");
   };
@@ -39,6 +33,7 @@ const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
           </div>
           <div className={styles.input}>
             <input
+              className="w-full px-4 py-2 placeholder:text-gray-500"
               type="email"
               placeholder="Enter your email"
               value={email}
@@ -51,6 +46,7 @@ const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
           </div>
           <div className={styles.input}>
             <input
+              className="w-full px-4 py-2 placeholder:text-gray-500"
               type="password"
               placeholder="Enter your password"
               value={password}
@@ -61,11 +57,10 @@ const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
           <div className={styles.submitcontainer}>
             <Button className={styles.button} text="Register" />
           </div>
-          <div className={styles.text}>
-            <Redirect to="/loginpage" text="Already Have An accounrt?" />
+          <div className="cursor-pointer text-white">
+            <Redirect to="/loginpage" text="Already have an account?" />
           </div>
         </div>
-
       </form>
     </div>
   );
