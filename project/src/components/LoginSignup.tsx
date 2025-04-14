@@ -14,21 +14,28 @@ const LoginSignup = () => {
   const onSigninClick = async () => {
     try {
       const res = await fetch("/backend/users", {
-        method: "POST",
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
+        }
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        console.log("Login successful:", data);
-        //router.push("/home");
+        const user = data.find(
+          (user) => user.email === formData.email && user.password === formData.password
+        );
+
+        if (user) {
+          console.log("Login successful:", user);
+          alert("Login successful");
+          // Call the onLogin function passed as a prop
+          User(user);
+        } else {
+          console.error("Invalid login credentials");
+          alert("Invalid login credentials");
+        }
       } else {
         console.error("Login failed:", data.message);
         alert(data.message || "Invalid login credentials");

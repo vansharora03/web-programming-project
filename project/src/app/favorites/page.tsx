@@ -5,6 +5,7 @@ import Card from "@/components/Card";
 import Link from "next/link";
 import styles from "@/components/Card.module.css";
 import { useRouter } from "next/navigation";
+import { isLoggedInTestBool } from "../utils/isLoggedInTestBool";
 
 import Image from "next/image";
 
@@ -18,11 +19,16 @@ interface Recipe {
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null); // Track login status
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(isLoggedInTestBool.val); // Track login status
   const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
+    // For testing purposes
+    if (isLoggedIn) {
+      return;
+    }
+
     if (token) {
       setIsLoggedIn(true);
       const storedFavorites = localStorage.getItem("favorites");

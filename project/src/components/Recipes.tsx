@@ -3,10 +3,13 @@
 import React, { useState, useEffect } from "react";
 import RecipeItems from "@/RecipeItems.json";
 import Recipe from "./Recipe";
+import { isLoggedInTestBool } from "@/app/utils/isLoggedInTestBool";
+import AddRecipe from "./AddRecipe";
 
 const Recipes = () => {
   const [favorites, setFavorites] = useState<any[]>([]);
-  const isLoggedIn = false; // PLACEHOLDER FOR TESTING
+  const [recipeItems, setRecipeItems] = useState<any[]>(RecipeItems);
+  const isLoggedIn = isLoggedInTestBool.val; // PLACEHOLDER FOR TESTING
 
   //placeholder
   useEffect(() => {
@@ -15,6 +18,10 @@ const Recipes = () => {
       setFavorites(JSON.parse(storedFavorites));
     }
   }, []);
+
+  const handleAddRecipe = (recipe: any) => {
+    setRecipeItems((prevItems) => [...prevItems, recipe]);
+  }
 
   const addToFavorites = (recipe: any) => {
     let updatedFavorites;
@@ -30,11 +37,11 @@ const Recipes = () => {
   return (
     <section>
       <div className="container-xl lg-container m-auto px-4 py-6">
-        {RecipeItems.length === 0 ? (
+        {recipeItems.length === 0 ? (
           <p>No Recipe Items available</p>
         ) : (
           <div className="flex flex-col gap-6">
-            {RecipeItems.map((recipe) => (
+            {recipeItems.map((recipe) => (
               <Recipe
                 key={recipe._id}
                 recipe={recipe}
@@ -46,6 +53,7 @@ const Recipes = () => {
           </div>
         )}
       </div>
+      {isLoggedIn ? <AddRecipe handleAddRecipe={handleAddRecipe} /> : <></>}
     </section>
   );
 };

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Card from "./Card";
-import styles from "./Card.module.css";
 
 interface RecipeProps {
   recipe: {
@@ -41,24 +40,31 @@ const Recipe = ({
     }
   };
 
+  console.log(recipe);
+
   return (
     <Card>
-      <div className={styles.content}>
-        <h1 className={styles.title}>{recipe.title}</h1>
-        <p className={styles.description}>{recipe.calories} calories</p>
-        <p className={styles.description}>{recipe.ingredientLines}</p>
-        <p className={styles.favorite} onClick={handleClick}>
-          {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
-        </p>
+      <div className="p-4">
+      <h1 className="text-xl font-bold mb-2">{recipe.title}</h1>
+      <p className="text-gray-600 mb-1">{recipe.calories} calories</p>
+      <p className="text-gray-600 mb-4">{recipe.ingredientLines}</p>
+      <p
+        className={`cursor-pointer text-sm ${
+        isFavorite ? "text-red-500" : "text-blue-500"
+        }`}
+        onClick={handleClick}
+      >
+        {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
+      </p>
       </div>
-      <div className={styles.imgwrapper}>
-        <Image
-          src={recipe.url}
-          alt={recipe.title}
-          fill
-          className={styles.img}
-          sizes="(max-width:770px) 100px, 150px"
-        />
+      <div className="relative w-full h-60">
+      <Image
+        src={recipe.url}
+        alt={recipe.title}
+        fill
+        className="object-cover rounded-md"
+        sizes="(max-width: 20px) 100px, 400px"
+      />
       </div>
     </Card>
   );
