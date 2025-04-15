@@ -1,32 +1,54 @@
+'use client'
 import styles from './Card.module.css'
-/* import React, { useState } from 'react';
+import Button from './Button';
+import React, { useState } from 'react';
 
-function SearchBar ({ onSearch }) {
+function SearchBar({ onSearch }) {
     const [query, setQuery] = useState('');
 
     const handleInput = (event) => {
-        const newQuery = event.target.value;
-        setQuery(newQuery);
-        onSearch(newQuery); 
+        setQuery(event.target.value);
+    };
+
+    const searchClick = () => {
+        onSearch(query);
     };
 
     return (
-        <input 
-        type="text"
-        placeholder="Search Recipes or Ingredients"
-        value={query}
-        onChange={handleInput} 
-        className={styles.search}
-        />
+        <div className={styles.container}>
+            <input
+                type="text"
+                placeholder="Search Recipes or Ingredients"
+                value={query}
+                onChange={handleInput}
+                className={styles.search}
+            />
+            <Button className={styles.button} onClick={handleInput} text='Search' />
+        </div>
     );
-}
-    */
- const SearchBar = () => {
+};
+/*
+function Search() {
+    const [results, setResults] = useState{ []};
+
+    const handleSearch = async (query) => {
+        try {
+            const response = await fetch(``);
+        }
+        catch (error) {
+            console.error("error");
+        };
+
+    };
     return (
-        <div className={styles.search}>
-            Search Bar
+        <div>
+            <Search onSearch={handleSearch} />
         </div>
     )
- }
 
+}
+*/
 export default SearchBar;
+
+
+
