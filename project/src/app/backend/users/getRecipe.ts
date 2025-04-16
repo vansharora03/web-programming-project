@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
 
-    const url = 'https://api.edamam.com/search?q=${encodeURIComponent(query)}&app_id=${process.env.EDAMAM_APP_ID}&app_key=${process.env.EDAMAM_APP_KEY}&from=0&to=20';
+    const url = `https://api.edamam.com/search?q=${encodeURIComponent(query)}&app_id=${process.env.EDAMAM_APP_ID}&app_key=%20${process.env.EDAMAM_APP_KEY}%09`;
 
     const response = await fetch(url);
     const data = await response.json();

@@ -1,17 +1,35 @@
 'use client'
 import styles from './Card.module.css'
 import Button from './Button';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Recipe from './Recipe';
 
-function SearchBar({ onSearch }) {
-    const [query, setQuery] = useState('');
+function SearchBar() {
+    const [query, setRecipes] = useState('');
+    const [search, setSearchTerm] = useState('');
 
     const handleInput = (event) => {
-        setQuery(event.target.value);
-    };
+        setSearchTerm(event.target.value);
+    }
+    /*
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch(`https://api.edamam.com/api/recipes/v2/?type=public&q=${query}&app_id=35b6401b&app_key=%2041191a205a196f9830c5d43ffd55a9d8%09`);
+
+                const data = await response.json();
+                setRecipes(data.recipes);
+                console.log(query)
+            } catch (error) {
+                console.log('Error');
+            }
+        };
+        fetchRecipes();
+    }, []); */
 
     const searchClick = () => {
-        onSearch(query);
+        fetch(`https://api.edamam.com/api/recipes/v2/?type=public&q=${search}&app_id=35b6401b&app_key=%2041191a205a196f9830c5d43ffd55a9d8%09`)
+            .then((response) => response.json()).then((json) => console.log(json));
     };
 
     return (
@@ -19,11 +37,14 @@ function SearchBar({ onSearch }) {
             <input
                 type="text"
                 placeholder="Search Recipes or Ingredients"
-                value={query}
+                value={search}
                 onChange={handleInput}
                 className={styles.search}
             />
-            <Button className={styles.button} onClick={handleInput} text='Search' />
+            <Button className={styles.button} onClick={searchClick} text='Search' />
+            <div>
+                hello
+            </div>
         </div>
     );
 };
