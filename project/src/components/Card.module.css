@@ -39,6 +39,12 @@
     max-width: 100%;
 }
 
+.title:hover {
+    text-decoration: underline;
+    color: white;
+    
+}
+
 .description {
     font-size: 1.5rem;
     font-weight:bold;
@@ -112,7 +118,7 @@
     }
 }
 
-.showmore {
+.link {
     display: flex;
     font-size: 24px;
     flex-direction: column;
@@ -120,7 +126,7 @@
     justify-content: center;
 }
 
-.showmore:hover {
+.link:hover {
     color:#2D4B48;
     text-decoration: underline;
     cursor: pointer;

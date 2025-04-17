@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Card from "./Card";
 import styles from "./Card.module.css";
+import Link from "next/link";
 
 interface RecipeProps {
   recipe: {
@@ -45,7 +46,7 @@ const Recipe = ({
   return (
     <Card>
       <div className={styles.content}>
-        <h1 className={styles.title}>{recipe.label}</h1>
+        <Link href={recipe.url} target='_blank' className={styles.title}>{recipe.label}</Link>
         <p className={styles.description}>{recipe.calories} calories</p>
         <p className={styles.description}>{recipe.ingredientLines}</p>
         <p className={styles.favorite} onClick={handleClick}>

@@ -5,7 +5,6 @@ import RecipeItems from "@/RecipeItems.json";
 import Recipe from "./Recipe";
 import { isLoggedInTestBool } from "@/app/utils/isLoggedInTestBool";
 import AddRecipe from "./AddRecipe";
-import SearchBar from "./SearchBar";
 
 const Recipes = () => {
   const [favorites, setFavorites] = useState<any[]>([]);
