@@ -112,6 +112,20 @@
     }
 }
 
+.showmore {
+    display: flex;
+    font-size: 24px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.showmore:hover {
+    color:#2D4B48;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .favorite {
     color: gray;
     font-size: 24;
