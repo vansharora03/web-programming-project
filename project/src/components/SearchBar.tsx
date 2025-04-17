@@ -3,7 +3,6 @@ import styles from './Card.module.css'
 import Button from './Button';
 import React, { useState } from 'react';
 import Recipe from './Recipe';
-import Link from 'next/link';
 
 type APIRecipe = {
     recipe: {
