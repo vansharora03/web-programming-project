@@ -8,18 +8,18 @@ import styles from "./Card.module.css";
 
 interface RecipeProps {
   recipe: {
-    _id: number;
-    title: string;
-    ingredientLines: string;
+    label: string;
+    ingredientLines: string[];
     calories: number;
     url: string;
+    image: string;
   };
   addToFavorites: (recipe: {
-    _id: number;
-    title: string;
-    ingredientLines: string;
+    label: string;
+    ingredientLines: string[];
     calories: number;
     url: string;
+    image: string;
   }) => void;
   isFavorite: boolean;
   isLoggedIn: boolean;
@@ -45,7 +45,7 @@ const Recipe = ({
   return (
     <Card>
       <div className={styles.content}>
-        <h1 className={styles.title}>{recipe.title}</h1>
+        <h1 className={styles.title}>{recipe.label}</h1>
         <p className={styles.description}>{recipe.calories} calories</p>
         <p className={styles.description}>{recipe.ingredientLines}</p>
         <p className={styles.favorite} onClick={handleClick}>
@@ -54,8 +54,8 @@ const Recipe = ({
       </div>
       <div className={styles.imgwrapper}>
         <Image
-          src={recipe.url}
-          alt={recipe.title}
+          src={recipe.image}
+          alt={recipe.label}
           fill
           className={styles.img}
           sizes="(max-width:770px) 100px, 150px"
