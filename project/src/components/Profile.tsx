@@ -4,6 +4,7 @@ import styles from "./Profile.module.css";
 import Avatar from "@/assets/avatar.jpg";
 import { useState } from "react";
 import { FormEvent } from "react";
+import Button from "./Button";
 
 type ProfileProps = {
     onChange: (user: { email: string; password: string }) => void;
@@ -65,6 +66,7 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
                                     required
                                 />
                             </div>
+                            <Button text="Save Changes" className={styles.button}/>
                         </div>
                     </form>
 

@@ -2,7 +2,7 @@
 import mongoose, {Model, Schema} from "mongoose";
 
 interface recipes extends Document{
-    label: string;
+    name: string;
     ingredientLines: string[];
     calories: number;
     image: string; //Store the recipe image using the image URL 
@@ -10,7 +10,7 @@ interface recipes extends Document{
 }
 
 const recipeSchema = new Schema<recipes>({
-    label: {
+    name: {
         type: String,
         required: true,
     },
@@ -31,5 +31,5 @@ const recipeSchema = new Schema<recipes>({
     },
 });
 
-const Recipe: Model<recipes> = mongoose.models.Recipe || mongoose.model<recipes>("Item", recipeSchema);
+const Recipe: Model<recipes> = mongoose.models.Recipe || mongoose.model<recipes>("Recipe", recipeSchema);
 export default Recipe;
