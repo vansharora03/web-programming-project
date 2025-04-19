@@ -21,17 +21,25 @@ const Recipes = () => {
 
   const handleAddRecipe = (recipe: any) => {
     setRecipeItems((prevItems) => [...prevItems, recipe]);
-  }
+  };
 
-  const addToFavorites = (recipe: any) => {
-    let updatedFavorites;
-    if (favorites.some((fav) => fav._id === recipe._id)) {
-      updatedFavorites = favorites.filter((fav) => fav._id !== recipe._id);
-    } else {
-      updatedFavorites = [...favorites, recipe];
+  const addToFavorites = async (recipe: any) => {
+    try {
+      const res = await fetch(`/backend/users/favorites/${userId}`, {
+        method: "PUT", //update the above path
+        headers: {
+          "Content-Type": "applications/json",
+        },
+        body: JSON.stringify({ recipe }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update favorites");
+
+      const data = await res.json();
+      setFavorites(data.favorites);
+    } catch (err) {
+      console.error("Error updating favorites:", err);
     }
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
   return (
