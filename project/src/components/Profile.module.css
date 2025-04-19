@@ -1,10 +1,10 @@
 @font-face {
-    font-family:'Coterie' ;
+    font-family: 'Coterie';
     src: url('/project/src/assets/fonts/coterie-regular.ttf') format('truetype');
 }
 
 .top {
-    background-color:#2D4B48;
+    background-color: #2D4B48;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
     padding: 20px;
     height: 800px;
     margin: 200px 300px 0 300px;
-    box-shadow: 8px 8px 12px rgba(0,0,0,0.5);
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.5);
     transition: 0.5s;
 }
 
@@ -43,7 +43,7 @@
     text-align: center;
     padding: 6px 6px;
     border-radius: 30px;
-    box-shadow: 2px 4px 2px rgba(0,0,0,0.3);
+    box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.3);
 }
 
 .settings {
@@ -53,13 +53,32 @@
     cursor: pointer;
 }
 
-.settings:hover {
-    color:#2D4B48;
-    text-decoration: underline;
-}
-
 .text {
     font-size: 32px;
     text-align: center;
     margin: 20px 0 40px 0;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    margin: 50px auto 0;
+    padding: 30px 20px;
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    background-color: #7BB497;
+    border-radius: 30px;
+    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
+  }
+
+.input {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+    width: 100%;
+    max-width: 400px;
+    height: 60px;
+    background: #eaeaea;
+    border-radius: 6px;
 }
