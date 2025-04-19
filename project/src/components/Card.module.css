@@ -44,6 +44,14 @@
     line-height: 1.4;
 }
 
+.ingredients {
+    margin-top: 10px;
+    padding-right: 150px;
+    font-size: 1.2rem;
+    color: black;
+    line-height: 1.4;
+}
+
 .imgwrapper {
     position: relative;
     width: 250px;
@@ -75,15 +83,19 @@
 
 .favorite {
     color: gray;
-    font-size: 24;
+    font-size: 20;
     margin: 75px 1100px 10px 0px;
     line-height: 1.4;
+    white-space: nowrap;
+
 }
 
 .favorite:hover {
     color: #2D4B48;
-    font-size: 24;
+    font-size: 20;
     line-height: 1.4;
     text-decoration: underline;
     cursor: pointer;
+    white-space: nowrap;
+
 }

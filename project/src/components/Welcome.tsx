@@ -31,6 +31,16 @@ const Welcome = () => {
           list more than just instant noodles.
         </p>
       </div>
+      <div className="grid justify-center">
+        <a
+          className={styles.header}
+          href="https://www.calculator.net/calorie-calculator.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Don't know how to meet your goals? Use this calculator!
+        </a>
+      </div>
     </div>
   );
 };

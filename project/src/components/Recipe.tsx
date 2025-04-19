@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -45,9 +44,15 @@ const Recipe = ({
   return (
     <Card>
       <div className={styles.content}>
+<<<<<<< Updated upstream
         <h1 className={styles.title}>{recipe.title}</h1>
+=======
+        <Link href={recipe.url} target="_blank" className={styles.title}>
+          {recipe.label}
+        </Link>
+>>>>>>> Stashed changes
         <p className={styles.description}>{recipe.calories} calories</p>
-        <p className={styles.description}>{recipe.ingredientLines}</p>
+        <p className={styles.ingredients}>{recipe.ingredientLines}</p>
         <p className={styles.favorite} onClick={handleClick}>
           {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
         </p>
