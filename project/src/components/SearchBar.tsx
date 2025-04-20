@@ -87,7 +87,7 @@ function SearchBar() {
         })}
         {nextPage && (
           <div className={styles.link}>
-            <Button text="Show more" onClick={loadMore} />
+            <Button text="Show more recipes" onClick={loadMore} />
           </div>
         )}
         {nextPage && (
