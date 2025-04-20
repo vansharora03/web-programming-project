@@ -9,6 +9,7 @@ type APIRecipe = {
     label: string;
     ingredientLines: string[];
     calories: number;
+    yield: number;
     url: string;
     image: string;
   };
@@ -24,6 +25,7 @@ function SearchBar() {
   };
 
   const searchClick = () => {
+    setRecipes([]);
     fetch(
       `https://api.edamam.com/api/recipes/v2/?type=public&q=${search}&app_id=35b6401b&app_key=%2041191a205a196f9830c5d43ffd55a9d8%09`
     )
@@ -53,25 +55,28 @@ function SearchBar() {
   };
 
   return (
-    <div className={styles.container}>
-      <input
-        type="text"
-        placeholder="Search Recipes or Ingredients"
-        value={search}
-        onChange={handleInput}
-        className={styles.search}
-      />
-      <Button className={styles.button} onClick={searchClick} text="Search" />
+    <>
+      <div className={styles.searchcontainer}>
+        <input
+          type="text"
+          placeholder="Search recipes or ingredients"
+          value={search}
+          onChange={handleInput}
+          className={styles.search}
+        />
+        <Button className={styles.button} onClick={searchClick} text="Search" />
+      </div>
 
-      <div>
+      <div className={styles.container}>
         {recipe.map((item, k) => {
           const newRecipe = item.recipe;
 
           const format = {
             _id: k,
             label: newRecipe.label,
-            ingredientLines: newRecipe.ingredientLines.join(", "),
+            ingredientLines: newRecipe.ingredientLines,
             calories: Math.round(newRecipe.calories),
+            yield: newRecipe.yield,
             image: newRecipe.image,
             url: newRecipe.url,
           };
@@ -79,9 +84,9 @@ function SearchBar() {
             <Recipe
               key={k}
               recipe={format}
-              addToFavorites={format}
+              addToFavorites={() => {}}
               isFavorite={false}
-              isLoggedIn
+              isLoggedIn={true} //for testing
             />
           );
         })}
@@ -96,7 +101,7 @@ function SearchBar() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

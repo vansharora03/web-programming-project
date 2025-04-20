@@ -42,9 +42,28 @@ const Recipes = () => {
     }
   };
 
+  const removeFromFavorites = async (recipe: any) => {
+    try {
+      const res = await fetch(`/backend/users/favorites/${userId}`, {
+        method: "DELETE", //update the above path
+        headers: {
+          "Content-Type": "applications/json",
+        },
+        body: JSON.stringify({ recipeId: recipe._id }),
+      });
+
+      if (!res.ok) throw new Error("Failed to remove from favorites");
+
+      const data = await res.json();
+      setFavorites(data.favorites);
+    } catch (err) {
+      console.error("Error removing from favorites:", err);
+    }
+  };
+
   return (
     <section>
-      <div className="container-xl lg-container m-auto px-4 py-6">
+      <div className="container-xl lg-container m-auto px-1 py-6">
         {recipeItems.length === 0 ? (
           <p>No Recipe Items available</p>
         ) : (
