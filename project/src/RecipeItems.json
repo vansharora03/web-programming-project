@@ -1,42 +1,80 @@
 [
-    {
+  {
       "_id": 1,
       "owner": 2,
-      "title": "Chicken Rice Bowl",
-      "ingredientLines": "Chicken, Rice, Beans, Ingredients..., Ingredients..., Ingredients...",
-      "calories": 600,
-      "url": "https://images.unsplash.com/photo-1741091750011-f0fb9b8400cc?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3DY"
+      "label": "Teriyaki Chicken",
+      "ingredientLines": [
+          "1/2 cup (125ml) mirin",
+          "1/2 cup (125ml) soy sauce",
+          "One 2-inch (5cm) piece of fresh ginger, peeled and grated",
+          "2-pounds (900g) boneless chicken thighs (4-8 thighs, depending on size)"
+  ],
+      "calories": 2253,
+      "yield": 6,
+      "url": "https://www.davidlebovitz.com/2012/12/chicken-teriyaki-recipe-japanese-farm-food/",
+      "image": "https://www.davidlebovitz.com/wp-content/uploads/2012/12/chicken-teriyaki-1.jpg"
   },
-    {
+  {
       "_id": 2,
-      "owner": 1,
-      "title": "Street Tacos",
-      "ingredientLines": "Corn Tortilla, Meat, Onions, Ingredients..., Ingredients...,  Ingredients...",
-     "calories": 500,
-      "url": "https://images.unsplash.com/photo-1520501247332-6fb052b72414?q=80&w=2372&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
+      "owner": 2,
+      "label": "Birria Tacos",
+      "ingredientLines": [
+          "1 tbsp sunflower oil",
+        "1½ kg braising steak, cut into 15cm cubes",
+        "4 guajillo chillies (available online), stem and seeds removed, or dried chillies",
+        "1 large ancho chilli (available online), stem and seeds removed",
+        "4 arbol chillies (available online; optional)",
+        "2 medium tomatoes, cut in half",
+        "1 medium onion, quartered",
+        "2 garlic cloves",
+        "½ tsp dried oregano",
+        "½ tsp ground cumin",
+        "½ tsp ground cinnamon",
+        "½ tsp ground ginger",
+        "2 cloves",
+        "3 black peppercorns",
+        "1 tsp white wine vinegar",
+        "2 bone marrow discs (ask your butcher)",
+        "15g sea salt flakes",
+        "2 bay leaves",
+        "handful of coriander, chopped",
+        "1 white onion, finely chopped",
+        "spicy salsa",
+        "2 limes, cut into small wedges",
+        "24 warmed corn tortillas (optional)",
+        "grated mozzarella (optional)"
+  ],
+      "calories": 5714,
+      "yield": 6,
+      "url": "https://www.bbcgoodfood.com/recipes/birria-tacos",
+      "image": "https://images.immediate.co.uk/production/volatile/sites/30/2023/01/Beef-birria-077246e.jpg?quality=90&webp=true&resize=300,272"
+  },
+  {
       "_id": 3,
-      "owner": 3,
-      "title": "Veggie Stir Fry ",
-      "ingredientLines": "Broccoli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
-      "calories": 550,
-      "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
+      "owner": 2,
+      "label": "The Ultimate Burger",
+      "ingredientLines": [
+          "2 1/2 pounds skirt steak or sirloin flap steak",
+        "Accompaniments: homemade burger buns ; homemade ketchup ; homemade mustard ; homemade pickle relish ; lettuce and tomato"
+  ],
+      "calories": 2211,
+      "yield": 6,
+      "url": "https://www.epicurious.com/recipes/food/views/the-ultimate-burger-353654",
+      "image": "https://assets.epicurious.com/photos/5609a5a06a59cdb91b5ff550/1:1/w_1600,c_limit/353654_hires.jpg"
+  },
+  {
       "_id": 4,
-      "owner": 3,
-      "title": "Food 4 ",
-      "ingredientLines": "broccoli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
-      "calories": 550,
-      "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    },
-    {
-      "_id": 5,
-      "owner": 3,
-      "title": "Food 5",
-      "ingredientLines": "broccoli, Bell Peppers, Garlic, Ingredients..., Ingredients..., Ingredients...",
-      "calories": 550,
-      "url": "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?q=80&w=2510&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    }
+      "owner": 2,
+      "label": "Pasta alla Gricia",
+      "ingredientLines": [
+        "1 1/2 to 2 ounces of guanciale",
+          "2 tablespoons of grated Pecorino Romano",
+          "4 ounces of dried pasta"
+  ],
+      "calories": 835,
+      "yield": 4,
+      "url": "https://www.seriouseats.com/pasta-alla-gricia",
+      "image": "https://www.seriouseats.com/thmb/ZJF_IV-h-81r4n7TD_VNRTHXRoY=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2018__10__20181017-pasta-gricia-vicky-wasik-18-1500x1125-8484f7efee18431d8e951d48db3a5416.jpg"
+  }
+  
 ]

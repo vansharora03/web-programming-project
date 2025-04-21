@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap:wrap;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     background-color: #d9d9d9;
     border-radius: 15px;
     padding: 20px;
@@ -48,6 +48,13 @@
 .description {
     font-size: 1.5rem;
     font-weight:bold;
+    color: black;
+    line-height: 1.4;
+}
+
+.ingredients {
+    margin-top: 10px;
+    font-size: 1.2rem;
     color: black;
     line-height: 1.4;
 }
@@ -132,17 +139,37 @@
     cursor: pointer;
 }
 
+.button {
+    height: auto;
+    font-size: 32px;
+    padding: 10px 20px;
+    background-color: #d9d9d9;
+    border: 7px solid #2D4B48;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 150px;
+}
+
 .favorite {
     color: gray;
-    font-size: 24;
-    margin: 75px 1100px 10px 0px;
+    font-size: 20;
+    margin: 30px 1100px 10px 0px;
     line-height: 1.4;
+    white-space: nowrap;
+
 }
 
 .favorite:hover {
     color: #2D4B48;
-    font-size: 24;
+    font-size: 20;
     line-height: 1.4;
     text-decoration: underline;
     cursor: pointer;
+    white-space: nowrap;
+
 }
+
+.yield {
+    font-size: 0.8rem;
+    color: #666;
+  }

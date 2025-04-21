@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -12,6 +11,7 @@ interface RecipeProps {
     label: string;
     ingredientLines: string[];
     calories: number;
+    yield: number;
     url: string;
     image: string;
   };
@@ -19,9 +19,21 @@ interface RecipeProps {
     label: string;
     ingredientLines: string[];
     calories: number;
+    yield: number;
     url: string;
     image: string;
   }) => void;
+
+  removeFromFavorites: (recipe: {
+    _id: number;
+    label: string;
+    ingredientLines: string;
+    calories: number;
+    yield: number;
+    url: string;
+    image: string;
+  }) => void;
+
   isFavorite: boolean;
   isLoggedIn: boolean;
 }
@@ -29,6 +41,7 @@ interface RecipeProps {
 const Recipe = ({
   recipe,
   addToFavorites,
+  removeFromFavorites,
   isFavorite,
   isLoggedIn,
 }: RecipeProps) => {
@@ -39,16 +52,26 @@ const Recipe = ({
       alert("Log in to add favorites.");
       router.push("/loginpage");
     } else {
-      addToFavorites(recipe);
+      if (isFavorite) {
+        removeFromFavorites(recipe);
+      } else {
+        addToFavorites(recipe);
+      }
     }
   };
+
+  const secureUrl = recipe.image.replace(/^http:/, "https:");
 
   return (
     <Card>
       <div className={styles.content}>
         <Link href={recipe.url} target='_blank' className={styles.title}>{recipe.label}</Link>
         <p className={styles.description}>{recipe.calories} calories</p>
-        <p className={styles.description}>{recipe.ingredientLines}</p>
+        <ul className={styles.ingredients}>
+          {recipe.ingredientLines.map((line, index) => (
+            <li key={index}>{line}</li>
+          ))}
+        </ul>
         <p className={styles.favorite} onClick={handleClick}>
           {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
         </p>
