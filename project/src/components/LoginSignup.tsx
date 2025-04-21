@@ -1,10 +1,16 @@
+"use client";
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
 import Button from "./Button";
 import Redirect from "./Redirect";
 import User from "./User";
+import { useRouter } from "next/router";
 
-const LoginSignup = () => {
+type onSigninClickProps = {
+  onLogin: (user: any) => void;
+}
+
+const LoginSignup = ({onLogin}: onSigninClickProps) => {
   const [action, setAction] = useState();
   const [formData, setFormData] = useState({
     email: "",
@@ -13,37 +19,33 @@ const LoginSignup = () => {
 
   const onSigninClick = async () => {
     try {
-      const res = await fetch("/backend/users", {
-        method: "GET",
+      const res = await fetch("/backend/login", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        const user = data.find(
-          (user) =>
-            user.email === formData.email && user.password === formData.password
-        );
+        const user = data.user;
+        localStorage.setItem("token", data.token);
 
         if (user) {
-          console.log("Login successful:", user);
           alert("Login successful");
-          // Call the onLogin function passed as a prop
-          User(user);
+          onLogin(user);
         } else {
           console.error("Invalid login credentials");
           alert("Invalid login credentials");
         }
       } else {
         console.error("Login failed:", data.message);
-        alert(data.message || "Invalid login credentials");
+        alert("Login failed: invalid credentials");
       }
     } catch (err) {
       console.error("Error logging in:", err);
-      alert("An error occurred while logging in.");
     }
   };
 

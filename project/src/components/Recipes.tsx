@@ -9,7 +9,18 @@ import AddRecipe from "./AddRecipe";
 const Recipes = () => {
   const [favorites, setFavorites] = useState<any[]>([]);
   const [recipeItems, setRecipeItems] = useState<any[]>(RecipeItems);
-  const isLoggedIn = isLoggedInTestBool.val; // PLACEHOLDER FOR TESTING
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        if (!localStorage.getItem('token')) {
+            setIsLoggedIn(false);
+        } else {
+            setIsLoggedIn(true);
+        }
+    }, 500);
+    return () => clearInterval(interval);
+}, []);
 
   //placeholder
   useEffect(() => {
@@ -68,7 +79,15 @@ const Recipes = () => {
           <p>No Recipe Items available</p>
         ) : (
           <div className="container-xl lg-container m-auto px-4 py-6">
-            
+            {recipeItems.map((recipe) => (
+              <Recipe
+                recipe={recipe}
+                addToFavorites={addToFavorites}
+                removeFromFavorites={removeFromFavorites}
+                isFavorite
+                isLoggedIn
+              />
+            ))}
           </div>
         )}
       </div>

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./Profile.module.css";
 import Avatar from "@/assets/avatar.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormEvent } from "react";
 import Button from "./Button";
 
@@ -13,6 +13,22 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({ onChange }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+          if (!localStorage.getItem('token')) {
+              setIsLoggedIn(false);
+          } else {
+              setIsLoggedIn(true);
+              const userEmail = localStorage.getItem('email');
+                if (userEmail) {
+                    setEmail(userEmail);
+                }
+          }
+      }, 500);
+      return () => clearInterval(interval);
+  }, []);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -22,6 +38,7 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
     };
 
     return (
+        isLoggedIn ? 
         <>
             <div className={styles.top}>
                 <Image
@@ -61,7 +78,7 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
                                     className="w-full px-4 py-2 placeholder:text-gray-500"
                                     type="email"
                                     placeholder="Change your Password"
-                                    value={email}
+                                    value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
@@ -72,7 +89,7 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
 
                 </div>
             </div>
-        </>
+        </> : <h1 className={styles.notloggedin}>Please log in to view your profile</h1>
     )
 }
 export default Profile;
