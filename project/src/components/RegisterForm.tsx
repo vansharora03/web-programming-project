@@ -55,7 +55,12 @@ const RegisterForm: React.FC<SignupProps> = ({ onSignup }) => {
             />
           </div>
           <div className={styles.submitcontainer}>
-            <Button className={styles.formButton} text="Register" onClick={handleSubmit}/>
+            <Button
+              className={styles.formButton}
+              type="submit"
+              text="Register"
+              onClick={handleSubmit}
+            />
           </div>
           <div className="cursor-pointer text-white hover:underline">
             <Redirect to="/loginpage" text="Already have an account?" />
