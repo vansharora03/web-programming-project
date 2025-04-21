@@ -7,8 +7,8 @@
     border-radius: 15px;
     padding: 20px;
     height: auto;
-    max-width: 90%;
-    margin: 10px 0;
+    max-width: 100%;
+    margin: 15px auto;
     box-shadow: 8px 8px 12px rgba(0,0,0,0.5);
     transition: 0.5s;
 }
@@ -79,6 +79,7 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
+    align-items: center;
 }
 
 .search {
@@ -94,20 +95,22 @@
     box-shadow: 2px 8px 4px rgba(0,0,0,0.4);
 }
 
-.button {
+.searchButton {
     background-color: #d9d9d9;
     height: auto;
-    font-size: 1.5rem;
     width: 100%;
+    max-width: 120px;
+    font-size: 1.5rem;
     align-items: center;
-    max-width: 150px;
-    padding: auto;
     margin: 0 10px;
     border: 7px solid #2D4B48;
     border-radius: 15px;
     box-shadow: 2px 8px 4px rgba(0,0,0,0.4);
     cursor: pointer;
-    font-weight: bold;
+}
+
+.searchButton:hover {
+    background-color: #7BB497;
 }
 
 @media (max-width: 1024px) {

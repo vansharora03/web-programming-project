@@ -87,12 +87,12 @@ const LoginSignup = () => {
         <div className={styles.submitcontainer}>
           <div className={styles.submitcontainer}>
             <Button
-              className={styles.button}
+              className={styles.formButton}
               text="Sign In"
               onClick={onSigninClick}
             />
           </div>
-          <div className="cursor-pointer text-white">
+          <div className="cursor-pointer text-white hover:underline">
             <Redirect to="/register" text="Don't have an account?" />
           </div>
         </div>

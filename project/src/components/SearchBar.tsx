@@ -61,7 +61,7 @@ function SearchBar() {
                 onChange={handleInput}
                 className={styles.search}
             />
-            <Button className={styles.button} onClick={searchClick} text='Search' />
+            <Button className={styles.searchButton} onClick={searchClick} text='Search' />
 
             <div>
                 {recipe.map((item, k) => {

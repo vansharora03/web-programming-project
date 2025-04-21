@@ -134,14 +134,15 @@
     color: #b4b4b4;
   } */
 
-.button {
-  border: transparent;
+.formButton {
+  border: 5px solid none;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
+  width: 100px;
   max-width: 200px;
-  height: 50px;
+  height: auto;
+  padding: 5px 5px;
   color: #fff;
   background: #2D484b;
   border-radius: 20px;
@@ -149,6 +150,11 @@
   font-weight: 700;
   cursor: pointer;
   margin: auto;
+}
+
+.formButton:hover {
+  background-color: white;
+  color: black;
 }
 
 .a {
