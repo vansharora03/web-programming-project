@@ -67,21 +67,7 @@ const Recipes = () => {
         {recipeItems.length === 0 ? (
           <p>No Recipe Items available</p>
         ) : (
-<<<<<<< Updated upstream
-          <div className="flex flex-col gap-6">
-            {recipeItems.map((recipe) => (
-              <Recipe
-                key={recipe._id}
-                recipe={recipe}
-                addToFavorites={addToFavorites}
-                isFavorite={favorites.some((fav) => fav._id === recipe._id)}
-                isLoggedIn={isLoggedIn}
-              />
-            ))}
-          </div>
-=======
           <div className="container-xl lg-container m-auto px-4 py-6"></div>
->>>>>>> Stashed changes
         )}
       </div>
       {isLoggedIn ? <AddRecipe handleAddRecipe={handleAddRecipe} /> : <></>}
