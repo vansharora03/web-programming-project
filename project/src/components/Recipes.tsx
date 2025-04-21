@@ -25,8 +25,8 @@ const Recipes = () => {
 
   const addToFavorites = async (recipe: any) => {
     try {
-      const res = await fetch(`/backend/users/favorites/${userId}`, {
-        method: "PUT", //update the above path
+      const res = await fetch(`/api/favorites`, {
+        method: "PUT",
         headers: {
           "Content-Type": "applications/json",
         },
@@ -44,8 +44,8 @@ const Recipes = () => {
 
   const removeFromFavorites = async (recipe: any) => {
     try {
-      const res = await fetch(`/backend/users/favorites/${userId}`, {
-        method: "DELETE", //update the above path
+      const res = await fetch(`/api/favorites`, {
+        method: "DELETE",
         headers: {
           "Content-Type": "applications/json",
         },
@@ -67,6 +67,7 @@ const Recipes = () => {
         {recipeItems.length === 0 ? (
           <p>No Recipe Items available</p>
         ) : (
+<<<<<<< Updated upstream
           <div className="flex flex-col gap-6">
             {recipeItems.map((recipe) => (
               <Recipe
@@ -78,6 +79,9 @@ const Recipes = () => {
               />
             ))}
           </div>
+=======
+          <div className="container-xl lg-container m-auto px-4 py-6"></div>
+>>>>>>> Stashed changes
         )}
       </div>
       {isLoggedIn ? <AddRecipe handleAddRecipe={handleAddRecipe} /> : <></>}
