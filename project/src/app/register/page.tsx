@@ -7,7 +7,7 @@ const handleSignup = async (user) => {
   console.log("User signed up:", user.email);
 
   try {
-    const response = await fetch("api/register", {
+    const response = await fetch("backend/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import splash from "@/assets/splash3.png";
 import styles from './Splash.module.css'

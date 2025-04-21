@@ -1,10 +1,24 @@
+"use client";
+
 import Image from 'next/image';
 import logo from '../assets/Logo1.png';
 import Signin from './Signin';
 import Register from './Register';
 import Link from 'next/link';
+import { isLoggedInTestBool } from '@/app/utils/isLoggedInTestBool';
+import { useEffect, useState } from 'react';
+import { set } from 'mongoose';
 
 export default function Navbar() {
+    const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInTestBool.val);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (localStorage.getItem('loggedOut')) {
+                setIsLoggedIn(false);
+            }
+        }, 500);
+        return () => clearInterval(interval);
+    }, []);
     return (
         <nav className='sticky top-0 w-full bg-white border-b border-black-200'>
             <div className='flex justify-between items-center h-20 px-6 md:px-16'>
@@ -28,8 +42,7 @@ export default function Navbar() {
                 <Link className='cursor-pointer hover:underline' href='/profile' >
                     Profile
                 </Link>
-                <Signin/>
-                <Register/>
+                {isLoggedIn ? <Link href={'/logout'}>Log out</Link> : <><Signin></Signin><Register></Register></>}
                </div>
             </div>
         </nav>
