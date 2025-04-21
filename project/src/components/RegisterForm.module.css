@@ -1,13 +1,15 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin: 30px 400px 30px 400px;
+  margin: 30px auto;
+  max-width: 1200px;
+  width: 90%;
   height: 900px;
   background: #D9D9D9;
   padding-bottom: 30px;
   border-radius: 30px;
   animation: fadeIn 3.5s;
-  box-shadow: 8px 8px 12px rgba(0,0,0,0.4);
+  box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
 }
 
 .header {
@@ -17,22 +19,24 @@
   gap: 10px;
   width: 100%;
   padding: 10px;
+  max-width: 1200px;
   color: #5C8966;
-  font-size: 48px;
+  font-size: 2.5rem;
   font-weight: 700;
   background: #2D484b;
   border-top-left-radius: 30px 30px;
   border-top-right-radius: 30px 30px;
-  margin:0;
+  margin: 0;
+  text-align: center;
 }
 
 .text {
-  display:flex;
-  flex-direction:row;
-  justify-content: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  font-size: 32px;
-  color:black;
+  font-size: 1.5rem;
+  color: black;
 }
 
 .underline {
@@ -46,26 +50,30 @@
 .inputs {
   display: flex;
   flex-direction: column;
-  margin: 50px 100px 0 100px;
-  padding: 50px 40px;
+  margin: 50px auto 0;
+  padding: 30px 20px;
+  width: 100%;
+  max-width: 800px;
   height: 600px;
   background-color: #7BB497;
   border-radius: 30px;
-  box-shadow: 8px 8px 12px rgba(0,0,0,0.4);
+  box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.4);
 }
 
 .input {
   display: flex;
   align-items: center;
   margin: 10px auto;
-  width: 250px;
-  height: 80px;
+  width: 100%;
+  max-width: 600px;
+  height: 60px;
   background: #eaeaea;
   border-radius: 6px;
 }
 
 .input p {
   margin: 0px 30px;
+  font-size: 1rem;
 }
 
 
@@ -88,12 +96,13 @@
   margin: auto;
   margin-top: 27px;
   color: white;
-  font-size: 18px;
+  font-size: 1rem;
 }
 
 .forgotpassword span {
   display: flex;
   align-items: center;
+  justify-content: center;
   color: white;
   cursor: pointer;
 }
@@ -109,12 +118,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
-  height: 80px;
+  width: 80%;
+  max-width: 300px;
+  height: 60px;
   color: #fff;
   background: #2D484b;
   border-radius: 20px;
-  font-size: 19px;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -124,20 +134,27 @@
     color: #b4b4b4;
   } */
 
-.button {
-  border: transparent;
+.formButton {
+  border: 5px solid none;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 59px;
+  width: 100px;
+  max-width: 200px;
+  height: auto;
+  padding: 5px 5px;
   color: #fff;
   background: #2D484b;
   border-radius: 20px;
-  font-size: 24px;
+  font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
   margin: auto;
+}
+
+.formButton:hover {
+  background-color: white;
+  color: black;
 }
 
 .a {
@@ -146,6 +163,11 @@
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

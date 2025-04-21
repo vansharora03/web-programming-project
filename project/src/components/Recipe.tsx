@@ -3,22 +3,37 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Card from "./Card";
+import styles from "./Card.module.css";
+import Link from "next/link";
 
 interface RecipeProps {
   recipe: {
-    _id: number;
-    title: string;
-    ingredientLines: string;
+    label: string;
+    ingredientLines: string[];
     calories: number;
+    yield: number;
     url: string;
+    image: string;
   };
   addToFavorites: (recipe: {
-    _id: number;
-    title: string;
-    ingredientLines: string;
+    label: string;
+    ingredientLines: string[];
     calories: number;
+    yield: number;
     url: string;
+    image: string;
   }) => void;
+
+  removeFromFavorites: (recipe: {
+    _id: number;
+    label: string;
+    ingredientLines: string[];
+    calories: number;
+    yield: number;
+    url: string;
+    image: string;
+  }) => void;
+
   isFavorite: boolean;
   isLoggedIn: boolean;
 }
@@ -26,6 +41,7 @@ interface RecipeProps {
 const Recipe = ({
   recipe,
   addToFavorites,
+  removeFromFavorites,
   isFavorite,
   isLoggedIn,
 }: RecipeProps) => {
@@ -36,35 +52,38 @@ const Recipe = ({
       alert("Log in to add favorites.");
       router.push("/loginpage");
     } else {
-      addToFavorites(recipe);
+      if (isFavorite) {
+        removeFromFavorites(recipe);
+      } else {
+        addToFavorites(recipe);
+      }
     }
   };
 
-  console.log(recipe);
+  const secureUrl = recipe.image.replace("/http:/", "https:");
 
   return (
     <Card>
-      <div className="p-4">
-      <h1 className="text-xl font-bold mb-2">{recipe.title}</h1>
-      <p className="text-gray-600 mb-1">{recipe.calories} calories</p>
-      <p className="text-gray-600 mb-4">{recipe.ingredientLines}</p>
-      <p
-        className={`cursor-pointer text-sm ${
-        isFavorite ? "text-red-500" : "text-blue-500"
-        }`}
-        onClick={handleClick}
-      >
-        {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
-      </p>
+      <div className={styles.content}>
+        <Link href={recipe.url} target='_blank' className={styles.title}>{recipe.label}</Link>
+        <p className={styles.description}>{recipe.calories} calories</p>
+        <ul className={styles.ingredients}>
+          {recipe.ingredientLines.map((line, index) => (
+            <li key={index}>{line}</li>
+          ))}
+        </ul>
+        <p className={styles.favorite} onClick={handleClick}>
+          {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
+        </p>
       </div>
-      <div className="relative w-full h-60">
-      <Image
-        src={recipe.url}
-        alt={recipe.title}
-        fill
-        className="object-cover rounded-md"
-        sizes="(max-width: 20px) 100px, 400px"
-      />
+      <div className={styles.imgwrapper}>
+        <Image
+          src={recipe.image}
+          alt={recipe.label}
+          fill
+          className={styles.img}
+          sizes="(max-width:770px) 100px, 150px"
+        />
       </div>
     </Card>
   );

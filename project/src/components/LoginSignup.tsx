@@ -17,14 +17,15 @@ const LoginSignup = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-        }
+        },
       });
 
       const data = await res.json();
 
       if (res.ok) {
         const user = data.find(
-          (user) => user.email === formData.email && user.password === formData.password
+          (user) =>
+            user.email === formData.email && user.password === formData.password
         );
 
         if (user) {
@@ -85,17 +86,13 @@ const LoginSignup = () => {
         </div>
         <div className={styles.submitcontainer}>
           <div className={styles.submitcontainer}>
-            <div className="px-4 py-2 cursor-pointer text-white">
-              <span>Forgot Password?</span>
-            </div>
-
             <Button
-              className={styles.button}
+              className={styles.formButton}
               text="Sign In"
               onClick={onSigninClick}
             />
           </div>
-          <div className="cursor-pointer text-white">
+          <div className="cursor-pointer text-white hover:underline">
             <Redirect to="/register" text="Don't have an account?" />
           </div>
         </div>

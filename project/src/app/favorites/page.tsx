@@ -42,8 +42,8 @@ const Favorites = () => {
     }
   }, [router]);
 
-  if (isLoggedIn === null) {
-    return null; // Wait until we know if the user is logged in or not
+  if (!isLoggedIn) {
+    return <div className="min-h-[500px]"></div>;
   }
 
   return (
