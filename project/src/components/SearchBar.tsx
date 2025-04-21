@@ -10,6 +10,7 @@ type APIRecipe = {
         ingredientLines: string[];
         calories: number;
         url: string;
+        yield: number;
         image: string;
     };
 }
@@ -64,23 +65,24 @@ function SearchBar() {
 
             <div>
                 {recipe.map((item, k) => {
-                    const newRecipe = item.recipe;
 
                     const format = {
                         _id: k,
-                        label: newRecipe.label,
-                        ingredientLines: newRecipe.ingredientLines.join(', '),
-                        calories: Math.round(newRecipe.calories),
-                        image: newRecipe.image,
-                        url: newRecipe.url,
+                        label: item.recipe.label,
+                        ingredientLines: item.recipe.ingredientLines || [],
+                        calories: Math.round(item.recipe.calories),
+                        yield: item.recipe.yield,
+                        image: item.recipe.image,
+                        url: item.recipe.url,
                     };
                     return (
                         <Recipe
                             key={k}
                             recipe={format}
-                            addToFavorites={format}
+                            addToFavorites={() => {}}
+                            removeFromFavorites={() => {}}
                             isFavorite={false}
-                            isLoggedIn
+                            isLoggedIn={false}
                         />
                     );
                 })}

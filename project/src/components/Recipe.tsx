@@ -27,7 +27,7 @@ interface RecipeProps {
   removeFromFavorites: (recipe: {
     _id: number;
     label: string;
-    ingredientLines: string;
+    ingredientLines: string[];
     calories: number;
     yield: number;
     url: string;
@@ -60,7 +60,7 @@ const Recipe = ({
     }
   };
 
-  const secureUrl = recipe.image.replace(/^http:/, "https:");
+  const secureUrl = recipe.image.replace("/http:/", "https:");
 
   return (
     <Card>

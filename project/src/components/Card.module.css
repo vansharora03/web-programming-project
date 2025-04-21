@@ -8,7 +8,7 @@
     padding: 20px;
     height: auto;
     max-width: 90%;
-    margin: 10px auto;
+    margin: 10px 0;
     box-shadow: 8px 8px 12px rgba(0,0,0,0.5);
     transition: 0.5s;
 }
@@ -83,10 +83,10 @@
 
 .search {
     background-color: #d9d9d9;
-    height: 60px;
+    height: auto;
     font-size: 1.5rem;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     padding: 0 10px;
     border: 7px solid #2D4B48;
     border-radius: 15px;
@@ -96,12 +96,13 @@
 
 .button {
     background-color: #d9d9d9;
-    height: 60px;
+    height: auto;
     font-size: 1.5rem;
     width: 100%;
     align-items: center;
     max-width: 150px;
-    padding: 0 10px;
+    padding: auto;
+    margin: 0 10px;
     border: 7px solid #2D4B48;
     border-radius: 15px;
     box-shadow: 2px 8px 4px rgba(0,0,0,0.4);
