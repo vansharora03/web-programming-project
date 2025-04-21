@@ -70,7 +70,7 @@ function SearchBar() {
                         _id: k,
                         label: item.recipe.label,
                         ingredientLines: item.recipe.ingredientLines || [],
-                        calories: Math.round(item.recipe.calories),
+                        calories: Math.round(item.recipe.calories / item.recipe.yield),
                         yield: item.recipe.yield,
                         image: item.recipe.image,
                         url: item.recipe.url,
