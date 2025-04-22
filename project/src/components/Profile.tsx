@@ -13,7 +13,6 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({ onChange }) => {
   const [email, setEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  //   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -59,7 +58,6 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
 
     onChange({ email });
     setEmail("");
-    // setPassword("");
   };
 
   return isLoggedIn ? (
@@ -70,7 +68,6 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
       <div>
         <div className={styles.card}>
           <div className={styles.header}>User Profile</div>
-          {/* <div className={styles.settings}>SETTINGS</div> */}
           <form onSubmit={handleSubmit}>
             <div className={styles.inputs}>
               <div>
@@ -93,19 +90,6 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
                   required
                 />
               </div>
-              {/* <div>
-                <p className={styles.text}>Password</p>
-              </div>
-              <div className={styles.input}>
-                <input
-                  className="w-full px-4 py-2 placeholder:text-gray-500"
-                  type="email"
-                  placeholder="Change your Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div> */}
               <Button text="Save Changes" className={styles.button} />
               {message && <p className="text-sm mt-2">{message}</p>}
             </div>
