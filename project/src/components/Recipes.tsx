@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import RecipeItems from "@/RecipeItems.json";
 import Recipe from "./Recipe";
-import { isLoggedInTestBool } from "@/app/utils/isLoggedInTestBool";
 import AddRecipe from "./AddRecipe";
 
 const Recipes = () => {
@@ -13,14 +12,14 @@ const Recipes = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-        if (!localStorage.getItem('token')) {
-            setIsLoggedIn(false);
-        } else {
-            setIsLoggedIn(true);
-        }
+      if (!localStorage.getItem("token")) {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+      }
     }, 500);
     return () => clearInterval(interval);
-}, []);
+  }, []);
 
   //placeholder
   useEffect(() => {
