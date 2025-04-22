@@ -1,9 +1,15 @@
+"use client";
+
 import Profile from "@/components/Profile";
 
 export default function Home() {
   return (
     <div>
-        <Profile />
+      <Profile
+        onChange={(user) => {
+          console.log("User updated:", user);
+        }}
+      />
     </div>
   );
 }

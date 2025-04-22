@@ -4,26 +4,80 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./Profile.module.css";
 import Avatar from "@/assets/avatar.jpg";
+import { useState, useEffect } from "react";
+import { FormEvent } from "react";
+import Button from "./Button";
 
-const Profile = () => {
-  const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+type ProfileProps = {
+  onChange: (user: { email: string }) => void;
+};
 
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(event.target.value);
-  };
+const Profile: React.FC<ProfileProps> = ({ onChange }) => {
+  const [currentEmail, setCurrentEmail] = useState("");
+  const [storedEmail, setStoredEmail] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const handlePasswordUpdate = () => {
-    if (newPassword.length < 6) {
-      setError("Password must be at least 6 characters long");
-      setSuccess("");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const interval = setInterval(() => {
+      if (!token) {
+        setIsLoggedIn(false);
+      } else {
+        setIsLoggedIn(true);
+        const userEmail = localStorage.getItem("email");
+        if (userEmail) {
+          setStoredEmail(userEmail);
+        }
+      }
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setMessage("User is not authenticated.");
       return;
     }
 
-    setSuccess("Password updated successfully!");
-    setError("");
-    setNewPassword("");
+    if (currentEmail !== storedEmail) {
+      setMessage("Current email does not match our records.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/backend/users", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ currentEmail, newEmail }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setStoredEmail(newEmail);
+        setCurrentEmail("");
+        setNewEmail("");
+        localStorage.setItem("email", newEmail);
+        setMessage("Email updated successfully.");
+        onChange({ email: newEmail });
+      } else {
+        setMessage(data.error || "Failed to update email.");
+      }
+    } catch (err) {
+      setMessage("An unexpected error occurred.");
+      console.log(err);
+    }
+
+    //setCurrentEmail("");
   };
 
   return (
@@ -34,29 +88,35 @@ const Profile = () => {
       <div>
         <div className={styles.card}>
           <div className={styles.header}>User Profile</div>
-          <div className={styles.settings}>SETTINGS</div>
-          <div>
-            <p className={styles.text}>Email</p>
-            <p className={styles.text}>Password</p>
-
-            {/* Password Update Section */}
-            <div className={styles.passwordSection}>
-              <input
-                type="password"
-                placeholder="Enter new password"
-                value={newPassword}
-                onChange={handlePasswordChange}
-                className={styles.passwordInput}
+          <form onSubmit={handleSubmit}>
+            <div className={styles.inputs}>
+              <div>
+                <p className={styles.text}>Email</p>
+              </div>
+              <div className={styles.input}>
+                <input
+                  className="w-full px-4 py-2 placeholder:text-gray-500"
+                  type="email"
+                  placeholder="Enter your current email"
+                  value={currentEmail}
+                  onChange={(e) => setCurrentEmail(e.target.value)}
+                  required
+                />
+                <input
+                  className="w-full px-4 py-2 placeholder:text-gray-500"
+                  type="email"
+                  placeholder="Change your email"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <Button
+                text="Save Changes"
+                className={styles.button}
+                type="submit"
               />
-              <button
-                onClick={handlePasswordUpdate}
-                className={styles.updateButton}
-              >
-                Update Password
-              </button>
-
-              {error && <p className={styles.error}>{error}</p>}
-              {success && <p className={styles.success}>{success}</p>}
+              {message && <p className="text-sm mt-2">{message}</p>}
             </div>
           </div>
         </div>
