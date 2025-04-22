@@ -7,7 +7,7 @@ import AddRecipe from "./AddRecipe";
 
 const Recipes = () => {
   const [favorites, setFavorites] = useState<any[]>([]);
-  const [recipeItems, setRecipeItems] = useState<any[]>(RecipeItems);
+  const [recipeItems, setRecipeItems] = useState<any[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -73,20 +73,12 @@ const Recipes = () => {
 
   return (
     <section>
-      <div className="container-xl lg-container m-auto px-1 py-6">
+      <div className="container-xl lg-container m-auto px-1 py-6 text-center font-bold ">
         {recipeItems.length === 0 ? (
-          <p>No Recipe Items available</p>
+          <p>No Recipe Items Available, Search Again</p>
         ) : (
           <div className="container-xl lg-container m-auto px-4 py-6">
-            {recipeItems.map((recipe) => (
-              <Recipe
-                recipe={recipe}
-                addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites}
-                isFavorite
-                isLoggedIn
-              />
-            ))}
+            
           </div>
         )}
       </div>
