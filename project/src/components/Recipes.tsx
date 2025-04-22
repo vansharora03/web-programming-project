@@ -79,15 +79,7 @@ const Recipes = () => {
           <p>No Recipe Items available</p>
         ) : (
           <div className="container-xl lg-container m-auto px-4 py-6">
-            {recipeItems.map((recipe) => (
-              <Recipe
-                recipe={recipe}
-                addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites}
-                isFavorite
-                isLoggedIn
-              />
-            ))}
+            
           </div>
         )}
       </div>
