@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const router = useRouter();
 
-  const handleLogin = (user) => {
+  const handleLogin = (user: any) => {
     localStorage.setItem("email", user.email);
+    localStorage.setItem("userId", user._id);
     router.push("/");
     console.log("Login successful:", user); 
   };

@@ -30,24 +30,23 @@ const Recipes = () => {
     }
   }, []);
 
-  const handleAddRecipe = (recipe: any) => {
-    setRecipeItems((prevItems) => [...prevItems, recipe]);
-  };
 
   const addToFavorites = async (recipe: any) => {
+    const send: any = recipe;
+    send.userId = localStorage.getItem("userId");
     try {
-      const res = await fetch(`/backend/users/favorites/${userId}`, {
-        method: "PUT", //update the above path
+      const res = await fetch(`/backend/favorites`, {
+        method: "POST", //update the above path
         headers: {
           "Content-Type": "applications/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ recipe }),
+        body: JSON.stringify({ send }),
       });
 
       if (!res.ok) throw new Error("Failed to update favorites");
 
       const data = await res.json();
-      setFavorites(data.favorites);
     } catch (err) {
       console.error("Error updating favorites:", err);
     }
@@ -83,7 +82,6 @@ const Recipes = () => {
           </div>
         )}
       </div>
-      {isLoggedIn ? <AddRecipe handleAddRecipe={handleAddRecipe} /> : <></>}
     </section>
   );
 };

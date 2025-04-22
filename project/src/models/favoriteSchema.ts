@@ -8,13 +8,12 @@ interface favorites extends Document{
     ingredientLines: string[];
     calories: number;
     image: string; //Store the recipe image using the image URL 
-    dishType: string;
 }
 
 const favoriteSchema = new Schema<favorites>({
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     label: {
@@ -32,10 +31,7 @@ const favoriteSchema = new Schema<favorites>({
 
     image: {
         type: String,
-    },
-    dishType: {
-        type: String,
-    },
+    }
 });
 
 const Favorite: Model<favorites> = mongoose.models.Favorite || mongoose.model<favorites>("Favorite", favoriteSchema);

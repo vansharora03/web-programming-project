@@ -1,95 +1,246 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Card from "@/components/Card";
 import Link from "next/link";
 import styles from "@/components/Card.module.css";
-import { useRouter } from "next/navigation";
-import { isLoggedInTestBool } from "../utils/isLoggedInTestBool";
-
-import Image from "next/image";
 
 interface Recipe {
   _id: number;
-  title: string;
+  label: string;
   ingredientLines: string;
   calories: number;
-  url: string;
+  image: string;
 }
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(isLoggedInTestBool.val); // Track login status
-  const router = useRouter();
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    // For testing purposes
-    if (isLoggedIn) {
-      return;
-    }
+    const fetchFavorites = async () => {
+      try {
+        const res = await fetch(`/backend/favorites/get`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ userId: localStorage.getItem("userId") }),
+        });
 
-    if (token) {
-      setIsLoggedIn(true);
-      const storedFavorites = localStorage.getItem("favorites");
-      if (storedFavorites) {
-        setFavorites(JSON.parse(storedFavorites));
+        if (!res.ok) throw new Error("Failed to fetch favorites");
+        const data = await res.json();
+        setFavorites(data);
+      } catch (err) {
+        console.error("Error fetching favorites:", err);
       }
-    } else {
-      setIsLoggedIn(false);
-      alert("Log in to view your favorites.");
-      router.push("/loginpage");
-    }
-  }, [router]);
+    };
 
-  if (!isLoggedIn) {
-    return <div className="min-h-[500px]"></div>;
-  }
+    fetchFavorites();
+  }, []);
+
+  const handleDelete = async (recipeId: number) => {
+    try {
+      const res = await fetch(`/backend/favorites`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          userId: localStorage.getItem("userId"),
+          recipeId,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to delete favorite");
+
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter((recipe) => recipe._id !== recipeId)
+      );
+    } catch (err) {
+      console.error("Error deleting favorite:", err);
+    }
+  };
+
+  const handleEdit = (recipe: Recipe) => {
+    setCurrentRecipe(recipe);
+    setIsEditing(true);
+  };
+
+  const handleEditSubmit = async () => {
+    if (!currentRecipe) return;
+
+    try {
+      const res = await fetch(`/backend/favorites`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          userId: localStorage.getItem("userId"),
+          recipeId: currentRecipe._id,
+          label: currentRecipe.label,
+          ingredientLines: currentRecipe.ingredientLines,
+          calories: currentRecipe.calories,
+          image: currentRecipe.image,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Failed to edit favorite");
+
+      setIsEditing(false);
+      setCurrentRecipe(null);
+
+      // Reload favorites
+      const fetchFavorites = async () => {
+        const res = await fetch(`/backend/favorites/get`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ userId: localStorage.getItem("userId") }),
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch favorites");
+        const data = await res.json();
+        setFavorites(data);
+      };
+
+      fetchFavorites();
+    } catch (err) {
+      console.error("Error editing favorite:", err);
+    }
+  };
 
   return (
-    <section>
-      <div className="min-h-[500px] flex items-center justify-center">
-        <div className="text-center px-4 py-6">
-          <h1 className="text-2xl font-bold mb-4">Your Favorite Recipes</h1>
-          {favorites.length === 0 ? (
-            <p>
-              You have no favorite recipes yet.{" "}
-              <Link
-                href="/recipes"
-                className="inline-block text-black rounded hover:text-blue-600"
-              >
-                Browse recipes here!
-              </Link>
-            </p>
-          ) : (
-            <div className="flex flex-col gap-6">
-              {favorites.map((recipe) => (
-                <Card key={recipe._id}>
-                  <div className={styles.content}>
-                    <h1 className={styles.title}>{recipe.title}</h1>
-                    <p className={styles.description}>
-                      {recipe.calories} calories
-                    </p>
-                    <p className={styles.description}>
-                      {recipe.ingredientLines}
-                    </p>
-                  </div>
-                  <div className={styles.imgwrapper}>
-                    <Image
-                      src={recipe.url}
-                      alt={recipe.title}
-                      fill
-                      className={styles.img}
-                      sizes="(max-width:770px) 100px, 150px"
-                    />
-                  </div>
-                </Card>
-              ))}
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-3xl font-bold mb-4">Your Favorite Recipes</h1>
+      <div className={styles.cardContainer}>
+        {favorites.length > 0 ? (
+          favorites.map((recipe) => (
+            <div
+              key={recipe._id}
+              className="bg-white shadow-lg rounded-lg p-6 m-4 w-80 transform transition-transform hover:scale-105"
+            >
+              <img
+                src={recipe.image}
+                alt={recipe.label}
+                width={300}
+                height={200}
+                className="rounded-lg mb-4"
+              />
+              <h2 className="text-2xl font-bold text-gray-800 mt-2 transform transition-transform hover:scale-110">
+                {recipe.label}
+              </h2>
+              <p className="text-lg font-semibold text-green-600 mt-1">
+                Calories:{" "}
+                {typeof recipe.calories === "number"
+                  ? recipe.calories.toFixed(2)
+                  : "N/A"}
+              </p>
+              <p className="text-gray-600 mt-2">
+                Ingredients: {recipe.ingredientLines}
+              </p>
+              <div className="flex justify-between mt-4">
+                <button
+                  onClick={() => handleEdit(recipe)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(recipe._id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-          )}
-        </div>
+          ))
+        ) : (
+          <p className="text-gray-600 mt-4">No favorite recipes found.</p>
+        )}
       </div>
-    </section>
+      <Link href="/recipes" className="mt-4 text-blue-500 hover:underline">
+        Back to Recipes
+      </Link>
+
+      {isEditing && currentRecipe && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Edit Recipe</h2>
+            <label className="block mb-2">
+              Label:
+              <input
+                type="text"
+                value={currentRecipe.label}
+                onChange={(e) =>
+                  setCurrentRecipe({ ...currentRecipe, label: e.target.value })
+                }
+                className="w-full border rounded px-2 py-1"
+              />
+            </label>
+            <label className="block mb-2">
+              Ingredients:
+              <input
+                type="text"
+                value={currentRecipe.ingredientLines}
+                onChange={(e) =>
+                  setCurrentRecipe({
+                    ...currentRecipe,
+                    ingredientLines: e.target.value,
+                  })
+                }
+                className="w-full border rounded px-2 py-1"
+              />
+            </label>
+            <label className="block mb-2">
+              Calories:
+              <input
+                type="number"
+                value={currentRecipe.calories}
+                onChange={(e) =>
+                  setCurrentRecipe({
+                    ...currentRecipe,
+                    calories: parseFloat(e.target.value),
+                  })
+                }
+                className="w-full border rounded px-2 py-1"
+              />
+            </label>
+            <label className="block mb-2">
+              Image URL:
+              <input
+                type="text"
+                value={currentRecipe.image}
+                onChange={(e) =>
+                  setCurrentRecipe({ ...currentRecipe, image: e.target.value })
+                }
+                className="w-full border rounded px-2 py-1"
+              />
+            </label>
+            <div className="flex justify-end mt-4">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleEditSubmit}
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

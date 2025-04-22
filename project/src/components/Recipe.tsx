@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import styles from "./Card.module.css";
 import Link from "next/link";
@@ -9,20 +10,12 @@ import Link from "next/link";
 interface RecipeProps {
   recipe: {
     label: string;
-    ingredientLines: string[];
+    ingredientLines: string;
     calories: number;
     yield: number;
     url: string;
     image: string;
   };
-  addToFavorites: (recipe: {
-    label: string;
-    ingredientLines: string[];
-    calories: number;
-    yield: number;
-    url: string;
-    image: string;
-  }) => void;
 
   removeFromFavorites: (recipe: {
     _id: number;
@@ -40,12 +33,44 @@ interface RecipeProps {
 
 const Recipe = ({
   recipe,
-  addToFavorites,
   removeFromFavorites,
   isFavorite,
-  isLoggedIn,
 }: RecipeProps) => {
   const router = useRouter();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        if (!localStorage.getItem('token')) {
+            setIsLoggedIn(false);
+        } else {
+            console.log("Logged in");
+            setIsLoggedIn(true);
+        }
+    }, 500);
+    return () => clearInterval(interval);
+}, []);
+  const addToFavorites = async (recipe: any) => {
+    const send: any = recipe;
+    send.userId = localStorage.getItem("userId");
+    try {
+      const res = await fetch(`/backend/favorites`, {
+        method: "POST", //update the above path
+        headers: {
+          "Content-Type": "applications/json",
+          "Authorization": `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ send }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update favorites");
+
+      const data = await res.json();
+      alert("Added to favorites");
+    } catch (err) {
+      console.error("Error updating favorites:", err);
+    }
+  };
 
   const handleClick = () => {
     if (!isLoggedIn) {
@@ -67,11 +92,7 @@ const Recipe = ({
       <div className={styles.content}>
         <Link href={recipe.url} target='_blank' className={styles.title}>{recipe.label}</Link>
         <p className={styles.description}>{recipe.calories} calories</p>
-        <ul className={styles.ingredients}>
-          {recipe.ingredientLines.map((line, index) => (
-            <li key={index}>{line}</li>
-          ))}
-        </ul>
+        <p className={styles.description}>{recipe.ingredientLines}</p>
         <p className={styles.favorite} onClick={handleClick}>
           {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
         </p>

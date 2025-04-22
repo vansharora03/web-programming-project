@@ -38,9 +38,9 @@ export default function Navbar() {
             <Link className='cursor-pointer hover:underline' href='/recipes' >
                 Recipes
             </Link>
-            <Link className='cursor-pointer hover:underline' href='/favorites' >
+            {isLoggedIn? <Link className='cursor-pointer hover:underline' href='/favorites' >
                 Favorites
-            </Link>
+            </Link> : <></>}
             <Link className='cursor-pointer hover:underline' href='/profile' >
                 Profile
             </Link>
