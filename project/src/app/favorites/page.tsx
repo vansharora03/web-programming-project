@@ -155,7 +155,7 @@ const Favorites = () => {
             >
               <img
                 src={recipe.image}
-                alt={recipe.title}
+                alt={recipe.label}
                 width={300}
                 height={200}
                 className={styles.imgwrapper}
