@@ -4,7 +4,7 @@ import { useState } from "react";
 type AddRecipeProps = { handleAddRecipe: (recipe: any) => void };
 
 const AddRecipe = ({ handleAddRecipe }: AddRecipeProps) => {
-  const [title, setTitle] = useState("");
+  const [label, setLabel] = useState("");
   const [calories, setCalories] = useState(0);
   const [ingredients, setIngredients] = useState("");
   const [imageUrl, setImageUrl] = useState(""); // Added imageUrl state
@@ -18,11 +18,11 @@ const AddRecipe = ({ handleAddRecipe }: AddRecipeProps) => {
             htmlFor="recipeName"
             className="block text-gray-700 font-medium mb-2"
           >
-            Title:
+            Label:
           </label>
           <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
             type="text"
             id="recipeName"
             name="recipeName"
@@ -83,12 +83,12 @@ const AddRecipe = ({ handleAddRecipe }: AddRecipeProps) => {
             handleAddRecipe({
               _id: 1,
               owner: 2,
-              title: title,
+              label: label,
               ingredientLines: ingredients,
               calories: calories,
               url: imageUrl,
             });
-            setTitle("");
+            setLabel("");
             setCalories(0);
             setIngredients("");
             setImageUrl("");
