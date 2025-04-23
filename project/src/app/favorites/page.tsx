@@ -75,7 +75,7 @@ const Favorites = () => {
     if (!currentRecipe) return;
 
     try {
-      const res = await fetch(`/backend/favorites/edit`, {
+      const res = await fetch(`/backend/favorites`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const Favorites = () => {
         body: JSON.stringify({
           userId: localStorage.getItem("userId"),
           recipeId: currentRecipe._id,
-          title: currentRecipe.label,
+          label: currentRecipe.label,
           ingredientLines: currentRecipe.ingredientLines,
           calories: currentRecipe.calories,
           image: currentRecipe.image,
@@ -130,18 +130,15 @@ const Favorites = () => {
           "Content-Type": "application/json",
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({send}
-        ),
+        body: JSON.stringify({ send }),
       });
 
       if (!res.ok) throw new Error("Failed to add recipe");
       setUpdateCounter((prev) => prev + 1);
-
-
     } catch (err) {
       console.error("Error adding recipe:", err);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -149,10 +146,7 @@ const Favorites = () => {
       <div className={styles.content}>
         {favorites.length > 0 ? (
           favorites.map((recipe) => (
-            <div
-              key={recipe._id}
-              className={styles.card}
-            >
+            <div key={recipe._id} className={styles.card}>
               <img
                 src={recipe.image}
                 alt={recipe.label}
@@ -160,9 +154,7 @@ const Favorites = () => {
                 height={200}
                 className={styles.imgwrapper}
               />
-              <h2 className={styles.title}>
-                {recipe.label}
-              </h2>
+              <h2 className={styles.title}>{recipe.label}</h2>
               <p className={styles.description}>
                 Calories:{" "}
                 {typeof recipe.calories === "number"
@@ -199,13 +191,12 @@ const Favorites = () => {
       </Link>
       <AddRecipe handleAddRecipe={handleAddRecipe}></AddRecipe>
 
-
       {isEditing && currentRecipe && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Edit Recipe</h2>
             <label className="block mb-2">
-              Title:
+              Label:
               <input
                 type="text"
                 value={currentRecipe.label}
