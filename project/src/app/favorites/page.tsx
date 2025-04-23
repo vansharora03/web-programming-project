@@ -120,7 +120,7 @@ const Favorites = () => {
   const handleAddRecipe = async (recipe: Recipe) => {
     const send: any = recipe;
     send.userId = localStorage.getItem("userId");
-    send.ingredientLines = recipe.ingredientLines.split(", ");
+    send.ingredientLines = recipe.ingredientLines.join(", ");
     send.label = recipe.label;
     send.calories = recipe.calories;
     try {
