@@ -41,9 +41,6 @@ export default function Navbar() {
             {isLoggedIn? <Link className='cursor-pointer hover:underline' href='/favorites' >
                 Favorites
             </Link> : <></>}
-            <Link className='cursor-pointer hover:underline' href='/profile' >
-                Profile
-            </Link>
             {isLoggedIn ? (
                 <>
                 <span>Welcome, {localStorage.getItem('email')}</span>
