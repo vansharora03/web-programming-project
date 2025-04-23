@@ -8,7 +8,7 @@ import { set } from "mongoose";
 
 interface Recipe {
   _id: number;
-  title: string;
+  label: string;
   ingredientLines: string;
   calories: number;
   image: string;
@@ -76,7 +76,7 @@ const Favorites = () => {
     if (!currentRecipe) return;
 
     try {
-      const res = await fetch(`/backend/favorites/edit`, {
+      const res = await fetch(`/backend/favorites`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Favorites = () => {
         body: JSON.stringify({
           userId: localStorage.getItem("userId"),
           recipeId: currentRecipe._id,
-          title: currentRecipe.title,
+          label: currentRecipe.label,
           ingredientLines: currentRecipe.ingredientLines,
           calories: currentRecipe.calories,
           image: currentRecipe.image,
@@ -122,7 +122,7 @@ const Favorites = () => {
     const send: any = recipe;
     send.userId = localStorage.getItem("userId");
     send.ingredientLines = recipe.ingredientLines.split(", ");
-    send.label = recipe.title;
+    send.label = recipe.label;
     send.calories = recipe.calories;
     try {
       const res = await fetch(`/backend/favorites`, {
@@ -150,40 +150,42 @@ const Favorites = () => {
       <div className={styles.cardContainer}>
         {favorites.length > 0 ? (
           favorites.map((recipe) => (
-            <div
-              key={recipe._id}
-              className="bg-white shadow-md rounded-lg p-4 m-4 w-80"
-            >
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                width={300}
-                height={200}
-                className="rounded-lg"
-              />
-              <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
-              <p className="text-gray-600 mt-1">
-                Calories:{" "}
-                {typeof recipe.calories === "number"
-                  ? recipe.calories.toFixed(2)
-                  : "N/A"}
-              </p>
-              <p className="text-gray-600 mt-1">
-                Ingredients: {recipe.ingredientLines}
-              </p>
-              <button
-                onClick={() => handleEdit(recipe)}
-                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(recipe._id)}
-                className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Delete
-              </button>
-            </div>
+        <div
+          key={recipe._id}
+          className="bg-white shadow-md rounded-lg p-4 m-4 w-80"
+        >
+          <img
+            src={recipe.image}
+            alt={recipe.label}
+            width={300}
+            height={200}
+            className="rounded-lg"
+          />
+          <h2 className="text-2xl font-bold mt-2 text-blue-600">
+            {recipe.label}
+          </h2>
+          <p className="text-lg font-semibold text-gray-800 mt-1">
+            Calories:{" "}
+            {typeof recipe.calories === "number"
+          ? recipe.calories.toFixed(2)
+          : "N/A"}
+          </p>
+          <p className="text-gray-600 mt-1">
+            Ingredients: {recipe.ingredientLines}
+          </p>
+          <button
+            onClick={() => handleEdit(recipe)}
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => handleDelete(recipe._id)}
+            className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
           ))
         ) : (
           <p className="text-gray-600 mt-4">No favorite recipes found.</p>
@@ -203,9 +205,9 @@ const Favorites = () => {
               Title:
               <input
                 type="text"
-                value={currentRecipe.title}
+                value={currentRecipe.label}
                 onChange={(e) =>
-                  setCurrentRecipe({ ...currentRecipe, title: e.target.value })
+                  setCurrentRecipe({ ...currentRecipe, label: e.target.value })
                 }
                 className="w-full border rounded px-2 py-1"
               />
