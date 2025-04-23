@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "@/components/AddRecipes.module.css";
+import AddRecipe from "@/components/AddRecipe";
 
 interface Recipe {
   _id: number;
@@ -14,6 +15,7 @@ interface Recipe {
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [updateCounter, setUpdateCounter] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
 
@@ -73,7 +75,7 @@ const Favorites = () => {
     if (!currentRecipe) return;
 
     try {
-      const res = await fetch(`/backend/favorites`, {
+      const res = await fetch(`/backend/favorites/edit`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +84,7 @@ const Favorites = () => {
         body: JSON.stringify({
           userId: localStorage.getItem("userId"),
           recipeId: currentRecipe._id,
-          label: currentRecipe.label,
+          title: currentRecipe.label,
           ingredientLines: currentRecipe.ingredientLines,
           calories: currentRecipe.calories,
           image: currentRecipe.image,
@@ -115,6 +117,31 @@ const Favorites = () => {
       console.error("Error editing favorite:", err);
     }
   };
+  const handleAddRecipe = async (recipe: Recipe) => {
+    const send: any = recipe;
+    send.userId = localStorage.getItem("userId");
+    send.ingredientLines = recipe.ingredientLines.split(", ");
+    send.label = recipe.label;
+    send.calories = recipe.calories;
+    try {
+      const res = await fetch(`/backend/favorites`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({send}
+        ),
+      });
+
+      if (!res.ok) throw new Error("Failed to add recipe");
+      setUpdateCounter((prev) => prev + 1);
+
+
+    } catch (err) {
+      console.error("Error adding recipe:", err);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -128,7 +155,7 @@ const Favorites = () => {
             >
               <img
                 src={recipe.image}
-                alt={recipe.label}
+                alt={recipe.title}
                 width={300}
                 height={200}
                 className={styles.imgwrapper}
@@ -170,18 +197,20 @@ const Favorites = () => {
       <Link href="/recipes" className="mt-4 text-blue-500 hover:underline">
         Back to Recipes
       </Link>
+      <AddRecipe handleAddRecipe={handleAddRecipe}></AddRecipe>
+
 
       {isEditing && currentRecipe && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Edit Recipe</h2>
             <label className="block mb-2">
-              Label:
+              Title:
               <input
                 type="text"
-                value={currentRecipe.label}
+                value={currentRecipe.title}
                 onChange={(e) =>
-                  setCurrentRecipe({ ...currentRecipe, label: e.target.value })
+                  setCurrentRecipe({ ...currentRecipe, title: e.target.value })
                 }
                 className="w-full border rounded px-2 py-1"
               />

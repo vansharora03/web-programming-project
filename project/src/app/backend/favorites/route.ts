@@ -9,6 +9,7 @@ import { getUserIdFromToken } from "@/app/utils/auth";
 export async function POST(req: NextRequest, res: NextResponse) {
     await dbConnect();
     const data = await req.json();
+    console.log(data);
     const {userId, label, ingredientLines, calories, image } = data.send;
     const userid = await getUserIdFromToken(req.headers.get("Authorization")?.split(" ")[1] || "");
     if (!userId) {
@@ -19,6 +20,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         await newFavorite.save();
         return NextResponse.json({ message: "Favorite added successfully" }, { status: 201 });
     } catch (error) {
+        console.log(error);
         return NextResponse.json({ message: "Error adding favorite", error }, { status: 500 });
     }
 }
