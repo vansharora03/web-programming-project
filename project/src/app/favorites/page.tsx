@@ -120,7 +120,7 @@ const Favorites = () => {
   const handleAddRecipe = async (recipe: Recipe) => {
     const send: any = recipe;
     send.userId = localStorage.getItem("userId");
-    send.ingredientLines = recipe.ingredientLines.split(", ");
+    send.ingredientLines = recipe.ingredientLines.join(", ");
     send.label = recipe.label;
     send.calories = recipe.calories;
     try {
@@ -208,9 +208,9 @@ const Favorites = () => {
               Title:
               <input
                 type="text"
-                value={currentRecipe.title}
+                value={currentRecipe.label}
                 onChange={(e) =>
-                  setCurrentRecipe({ ...currentRecipe, title: e.target.value })
+                  setCurrentRecipe({ ...currentRecipe, label: e.target.value })
                 }
                 className="w-full border rounded px-2 py-1"
               />
