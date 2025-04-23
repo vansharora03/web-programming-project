@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "@/components/Card.module.css";
+import AddRecipe from "@/components/AddRecipe";
+import { set } from "mongoose";
 
 interface Recipe {
   _id: number;
-  label: string;
+  title: string;
   ingredientLines: string;
   calories: number;
   image: string;
@@ -14,6 +16,7 @@ interface Recipe {
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [updateCounter, setUpdateCounter] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [currentRecipe, setCurrentRecipe] = useState<Recipe | null>(null);
 
@@ -73,7 +76,7 @@ const Favorites = () => {
     if (!currentRecipe) return;
 
     try {
-      const res = await fetch(`/backend/favorites`, {
+      const res = await fetch(`/backend/favorites/edit`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +85,7 @@ const Favorites = () => {
         body: JSON.stringify({
           userId: localStorage.getItem("userId"),
           recipeId: currentRecipe._id,
-          label: currentRecipe.label,
+          title: currentRecipe.title,
           ingredientLines: currentRecipe.ingredientLines,
           calories: currentRecipe.calories,
           image: currentRecipe.image,
@@ -115,6 +118,31 @@ const Favorites = () => {
       console.error("Error editing favorite:", err);
     }
   };
+  const handleAddRecipe = async (recipe: Recipe) => {
+    const send: any = recipe;
+    send.userId = localStorage.getItem("userId");
+    send.ingredientLines = recipe.ingredientLines.split(", ");
+    send.label = recipe.title;
+    send.calories = recipe.calories;
+    try {
+      const res = await fetch(`/backend/favorites`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({send}
+        ),
+      });
+
+      if (!res.ok) throw new Error("Failed to add recipe");
+      setUpdateCounter((prev) => prev + 1);
+
+
+    } catch (err) {
+      console.error("Error adding recipe:", err);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -124,41 +152,37 @@ const Favorites = () => {
           favorites.map((recipe) => (
             <div
               key={recipe._id}
-              className="bg-white shadow-lg rounded-lg p-6 m-4 w-80 transform transition-transform hover:scale-105"
+              className="bg-white shadow-md rounded-lg p-4 m-4 w-80"
             >
               <img
                 src={recipe.image}
-                alt={recipe.label}
+                alt={recipe.title}
                 width={300}
                 height={200}
-                className="rounded-lg mb-4"
+                className="rounded-lg"
               />
-              <h2 className="text-2xl font-bold text-gray-800 mt-2 transform transition-transform hover:scale-110">
-                {recipe.label}
-              </h2>
-              <p className="text-lg font-semibold text-green-600 mt-1">
+              <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
+              <p className="text-gray-600 mt-1">
                 Calories:{" "}
                 {typeof recipe.calories === "number"
                   ? recipe.calories.toFixed(2)
                   : "N/A"}
               </p>
-              <p className="text-gray-600 mt-2">
+              <p className="text-gray-600 mt-1">
                 Ingredients: {recipe.ingredientLines}
               </p>
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={() => handleEdit(recipe)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(recipe._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-                >
-                  Delete
-                </button>
-              </div>
+              <button
+                onClick={() => handleEdit(recipe)}
+                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(recipe._id)}
+                className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
             </div>
           ))
         ) : (
@@ -168,18 +192,20 @@ const Favorites = () => {
       <Link href="/recipes" className="mt-4 text-blue-500 hover:underline">
         Back to Recipes
       </Link>
+      <AddRecipe handleAddRecipe={handleAddRecipe}></AddRecipe>
+
 
       {isEditing && currentRecipe && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <h2 className="text-xl font-bold mb-4">Edit Recipe</h2>
             <label className="block mb-2">
-              Label:
+              Title:
               <input
                 type="text"
-                value={currentRecipe.label}
+                value={currentRecipe.title}
                 onChange={(e) =>
-                  setCurrentRecipe({ ...currentRecipe, label: e.target.value })
+                  setCurrentRecipe({ ...currentRecipe, title: e.target.value })
                 }
                 className="w-full border rounded px-2 py-1"
               />
