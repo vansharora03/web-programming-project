@@ -90,8 +90,19 @@ const Profile: React.FC<ProfileProps> = ({ onChange }) => {
                   required
                 />
               </div>
+<<<<<<< Updated upstream
               <Button text="Save Changes" className={styles.button} />
               {message && <p className="text-sm mt-2">{message}</p>}
+=======
+              <Button
+                text="Save Changes"
+                className={styles.button}
+                type="submit"
+              />
+              {typeof message === "string" && (
+                <p className="text-sm mt-2">{message}</p>
+              )}
+>>>>>>> Stashed changes
             </div>
           </form>
         </div>
