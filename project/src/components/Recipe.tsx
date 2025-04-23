@@ -10,7 +10,7 @@ import Link from "next/link";
 interface RecipeProps {
   recipe: {
     label: string;
-    ingredientLines: string;
+    ingredientLines: string[];
     calories: number;
     yield: number;
     url: string;
@@ -92,7 +92,11 @@ const Recipe = ({
       <div className={styles.content}>
         <Link href={recipe.url} target='_blank' className={styles.title}>{recipe.label}</Link>
         <p className={styles.description}>{recipe.calories} calories</p>
-        <p className={styles.description}>{recipe.ingredientLines}</p>
+        <ul className={styles.ingredients}>
+          {recipe.ingredientLines.map((line, index) => (
+            <li key={index}>{line}</li>
+          ))}
+        </ul>
         <p className={styles.favorite} onClick={handleClick}>
           {isFavorite ? "Remove From Favorites" : "Add To Favorites"}
         </p>

@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "@/components/Card.module.css";
+import styles from "@/components/AddRecipes.module.css";
 
 interface Recipe {
   _id: number;
   label: string;
-  ingredientLines: string;
+  ingredientLines: string[];
   calories: number;
   image: string;
 }
@@ -119,42 +119,44 @@ const Favorites = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <h1 className="text-3xl font-bold mb-4">Your Favorite Recipes</h1>
-      <div className={styles.cardContainer}>
+      <div className={styles.content}>
         {favorites.length > 0 ? (
           favorites.map((recipe) => (
             <div
               key={recipe._id}
-              className="bg-white shadow-lg rounded-lg p-6 m-4 w-80 transform transition-transform hover:scale-105"
+              className={styles.card}
             >
               <img
                 src={recipe.image}
                 alt={recipe.label}
                 width={300}
                 height={200}
-                className="rounded-lg mb-4"
+                className={styles.imgwrapper}
               />
-              <h2 className="text-2xl font-bold text-gray-800 mt-2 transform transition-transform hover:scale-110">
+              <h2 className={styles.title}>
                 {recipe.label}
               </h2>
-              <p className="text-lg font-semibold text-green-600 mt-1">
+              <p className={styles.description}>
                 Calories:{" "}
                 {typeof recipe.calories === "number"
                   ? recipe.calories.toFixed(2)
                   : "N/A"}
               </p>
-              <p className="text-gray-600 mt-2">
-                Ingredients: {recipe.ingredientLines}
-              </p>
+              <ul className={styles.ingredients}>
+                {recipe.ingredientLines.map((line, index) => (
+                  <li key={index}>{line}</li>
+                ))}
+              </ul>
               <div className="flex justify-between mt-4">
                 <button
                   onClick={() => handleEdit(recipe)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                  className={styles.edit}
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(recipe._id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
+                  className={styles.delete}
                 >
                   Delete
                 </button>
@@ -185,7 +187,6 @@ const Favorites = () => {
               />
             </label>
             <label className="block mb-2">
-              Ingredients:
               <input
                 type="text"
                 value={currentRecipe.ingredientLines}
